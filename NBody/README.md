@@ -11,8 +11,8 @@ RUN INSTRUCTIONS:
 2. Compile all files (javac *.java)
 3. Run main method of PlanetSimulation.java (java PlanetSimulation)
 
-Screenshots: 
-![Settings Window]https://raw.github.com/{dsouzarc}/{algorithmsdata}/{master}/{Screenshot2.png}
+Screenshots:
+[ScreenShot](https://raw.githubusercontent.com/dsouzarc/algorithmsdata/master/Screenshot2.png)
 
 
 Please email me if you have any questions
