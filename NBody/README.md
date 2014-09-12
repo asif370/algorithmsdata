@@ -12,7 +12,7 @@ RUN INSTRUCTIONS:
 3. Run main method of PlanetSimulation.java (java PlanetSimulation)
 
 Screenshots:
-![alt tag](https://github.com/dsouzarc/nbody/nbody/blob/master/Screenshot2.png)
+![alt tag](https://github.com/dsouzarc/algorithmsdata/blob/master/NBody/Screenshot2.png)
 
 
 Please email me if you have any questions
