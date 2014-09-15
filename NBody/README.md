@@ -8,6 +8,11 @@ http://www.cs.princeton.edu/courses/archive/spring14/cos126/assignments/nbody.ht
 RUN INSTRUCTIONS: 
 
 1. Download all files into the same directory
+
+OPTION A.
+2. java -jar nbody.jar
+
+OPTION B.
 2. Compile all files (javac *.java)
 3. Run main method of PlanetSimulation.java (java PlanetSimulation)
 4. Turn up volume to hear background music
