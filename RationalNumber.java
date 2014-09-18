@@ -11,15 +11,18 @@ public final class RationalNumber {
     simplify();
   }
   
+  /** Returns this RationalNumber * other RationalNumber */
   public RationalNumber multiply(final RationalNumber otherNum) { 
     return new RationalNumber(this.numerator * otherNum.getNumerator(), 
                         this.denominator * otherNum.getDenominator());
   }
   
+  /** Returns this RationalNumber * another number */
   public RationalNumber multiply(final long number) { 
     return new RationalNumber(this.numerator * number, this.denominator);
   }
   
+  /** Returns this RationalNumber + another RationalNumber*/
   public RationalNumber add(final RationalNumber otherNum) { 
     if(this.denominator == otherNum.getDenominator()) { 
       return new RationalNumber(this.numerator + otherNum.getNumerator(), this.denominator);
@@ -28,8 +31,22 @@ public final class RationalNumber {
     //Find the LCD
     final long LCD = getLCM(this.denominator, otherNum.getDenominator());
     
-    final long newNumerator = this.numerator * LCD + otherNum.getNumerator() * LCD;
+    final long newNumerator = (this.numerator * LCD) + (otherNum.getNumerator() * LCD);
     final long newDenominator = this.numerator * LCD;
+    
+    return new RationalNumber(newNumerator, newDenominator);
+  }
+  
+  /** Returns this RationalNumber - another RationalNumber */
+  public RationalNumber subtract(final RationalNumber otherNum) { 
+    if(this.denominator == otherNum.getDenominator()) { 
+      return new RationalNumber(this.numerator - otherNum.getNumerator(), this.denominator);
+    }
+    
+    final long LCD = getLCM(this.denominator, otherNum.getDenominator());
+    
+    final long newNumerator = (this.numerator * LCD) - (otherNum.getNumerator() * LCD);
+    final long newDenominator = this.denominator * LCD;
     
     return new RationalNumber(newNumerator, newDenominator);
   }
@@ -88,11 +105,13 @@ public final class RationalNumber {
   /** Set numerator */
   public void setNumerator(final long num) { 
     this.numerator = num;
+    simplify();
   }
   
   /** Sets denominator */
   public void setDenominator(final long num) { 
     this.denominator = num;
+    simplify();
   }
   
   @Override
