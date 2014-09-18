@@ -80,6 +80,8 @@ public final class RationalNumber {
     denom1 = Math.abs(denom1);
     denom2 = Math.abs(denom2);
     
+    assert (denom1 * denom2 <= Long.MAX_VALUE) : new AssertionError("Possibility of StackOverFlow Error");
+    
     if(denom2 == 0) { 
       return denom1;
     }
@@ -95,7 +97,8 @@ public final class RationalNumber {
   public static long getLCM(long denom1, long denom2) { 
     denom1 = Math.abs(denom1);
     denom2 = Math.abs(denom2);
-    return denom1 * (denom2 / (getLCM(denom1, denom2)));
+    assert (denom1 * denom2 <= Long.MAX_VALUE) : new AssertionError("Possibility of StackOverFlow Error");
+    return  denom1 * (denom2 / (getLCM(denom1, denom2)));
   }
   
   /** Returns numerator */
@@ -149,5 +152,9 @@ public final class RationalNumber {
     myNum.simplify();
     final RationalNumber otherNum = new RationalNumber(myNum.getDenominator(), myNum.getNumerator());
     System.out.println(otherNum.times(myNum).toString());
+    
+    myNum.setDenominator(Long.MAX_VALUE);
+    myNum.setDenominator(Long.MAX_VALUE);
+    myNum.getLCM();
   }
 }
