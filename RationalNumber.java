@@ -38,6 +38,18 @@ public final class RationalNumber {
     return getGCD(denominator, numerator % denominator);
   }
   
+  /** Returns the Least Common Multiple, used for multiplying fractions */
+  public long getLCM() { 
+    return getLCM(this.numerator, this.denominator);
+  }
+  
+  /** Returns the Least Common Multiple, used for multiplying fractions */
+  private static long getLCM(long numerator, long denominator) { 
+    numerator = Math.abs(numerator);
+    denominator = Math.abs(denominator);
+    return numerator * (denominator / (getLCM(numerator, denominator)));
+  }
+  
   /** Returns numerator */
   public long getNumerator() { 
     return this.numerator;
