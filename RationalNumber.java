@@ -51,6 +51,12 @@ public final class RationalNumber {
     return new RationalNumber(newNumerator, newDenominator);
   }
   
+  /** Returns this RationalNumber / another RationalNumber */
+  public RationalNumber divide(final RationalNumber otherNum) { 
+    final long newNumerator = this.numerator * otherNum.getDenominator();
+    final long newDenominator = this.denominator * otherNum.getNumerator();
+    return new RationalNumber(newNumerator, newDenominator);
+  }
   
   /** Simplifies the fraction by dividing both numbers by the GCD */
   public void simplify() { 
