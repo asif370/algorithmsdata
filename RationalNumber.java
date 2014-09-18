@@ -12,7 +12,7 @@ public final class RationalNumber {
   }
   
   /** Returns this RationalNumber * other RationalNumber */
-  public RationalNumber multiply(final RationalNumber otherNum) { 
+  public RationalNumber times(final RationalNumber otherNum) { 
     return new RationalNumber(this.numerator * otherNum.getNumerator(), 
                         this.denominator * otherNum.getDenominator());
   }
@@ -138,12 +138,16 @@ public final class RationalNumber {
   
   @Override
   public String toString() { 
+    if(denominator == 1) { 
+      return String.valueOf(this.numerator);
+    }
     return numerator + "/" + denominator;
   }
   
   public static void main(String[] ryan) { 
     final RationalNumber myNum = new RationalNumber(2, 8);
     myNum.simplify();
-    System.out.println(myNum);
+    final RationalNumber otherNum = new RationalNumber(myNum.getDenominator(), myNum.getNumerator());
+    System.out.println(otherNum.times(myNum).toString());
   }
 }
