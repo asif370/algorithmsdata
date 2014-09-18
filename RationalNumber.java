@@ -10,6 +10,14 @@ public final class RationalNumber {
     this.denominator = denominator;
   }
   
+  public long getNumerator() { 
+    return this.numerator;
+  }
+  
+  public long getDenominator() { 
+    return this.denominator;
+  }
+  
   @Override
   public boolean equals(final Object other) { 
     if(!(other instanceof RationalNumber)) { 
@@ -22,7 +30,8 @@ public final class RationalNumber {
       return true;
     }
     
-    return false;
+    return (this.numerator == otherNumber.getNumerator()) && 
+      (this.denominator == otherNumber.getDenominator());
   }
   
   @Override
