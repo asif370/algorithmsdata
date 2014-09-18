@@ -10,10 +10,25 @@ public final class RationalNumber {
     this.denominator = denominator;
   }
   
+  /** Returns Greatest Common Denominator, used for simplifying */
+  private long getGCD(long numerator, long denominator) { 
+    //In case of negatives
+    numerator = Math.abs(numerator);
+    denominator = Math.abs(denominator);
+    
+    if(denominator == 0) { 
+      return numerator;
+    }
+    
+    return getGCD(denominator, numerator % denominator);
+  }
+  
+  /** Returns numerator */
   public long getNumerator() { 
     return this.numerator;
   }
   
+  /** Returns denominator */
   public long getDenominator() { 
     return this.denominator;
   }
