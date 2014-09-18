@@ -10,6 +10,19 @@ public final class RationalNumber {
     this.denominator = denominator;
   }
   
+  public RationalNumber multiply(final RationalNumber otherNum) { 
+    return new RationalNumber(this.numerator * otherNum.getNumerator(), 
+                        this.denominator * otherNum.getDenominator());
+  }
+  
+  public RationalNumber multiply(final long number) { 
+    return new RationalNumber(this.numerator * number, this.denominator * number);
+  }
+  
+  
+  
+  
+  
   /** Simplifies the fraction by dividing both numbers by the GCD */
   public void simplify() { 
     final long GCD = this.getGCD();
@@ -58,6 +71,16 @@ public final class RationalNumber {
   /** Returns denominator */
   public long getDenominator() { 
     return this.denominator;
+  }
+  
+  /** Set numerator */
+  public void setNumerator(final long num) { 
+    this.numerator = num;
+  }
+  
+  /** Sets denominator */
+  public void setDenominator(final long num) { 
+    this.denominator = num;
   }
   
   @Override
