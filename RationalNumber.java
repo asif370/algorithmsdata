@@ -8,6 +8,7 @@ public final class RationalNumber {
   public RationalNumber(final long numerator, final long denominator) { 
     this.numerator = numerator;
     this.denominator = denominator;
+    simplify();
   }
   
   public RationalNumber multiply(final RationalNumber otherNum) { 
@@ -16,11 +17,22 @@ public final class RationalNumber {
   }
   
   public RationalNumber multiply(final long number) { 
-    return new RationalNumber(this.numerator * number, this.denominator * number);
+    return new RationalNumber(this.numerator * number, this.denominator);
   }
   
-  
-  
+  public RationalNumber add(final RationalNumber otherNum) { 
+    if(this.denominator == otherNum.getDenominator()) { 
+      return new RationalNumber(this.numerator + otherNum.getNumerator(), this.denominator);
+    }
+    
+    //Find the LCD
+    final long LCD = getLCM(this.denominator, otherNum.getDenominator());
+    
+    final long newNumerator = this.numerator * LCD + otherNum.getNumerator() * LCD;
+    final long newDenominator = this.numerator * LCD;
+    
+    return new RationalNumber(newNumerator, newDenominator);
+  }
   
   
   /** Simplifies the fraction by dividing both numbers by the GCD */
@@ -40,7 +52,7 @@ public final class RationalNumber {
   }
   
   /** Returns Greatest Common Denominator, used for simplifying */
-  private static long getGCD(long numerator, long denominator) { 
+  public static long getGCD(long numerator, long denominator) { 
     //In case of negatives
     numerator = Math.abs(numerator);
     denominator = Math.abs(denominator);
@@ -57,7 +69,7 @@ public final class RationalNumber {
   }
   
   /** Returns the Least Common Multiple, used for multiplying fractions */
-  private static long getLCM(long numerator, long denominator) { 
+  public static long getLCM(long numerator, long denominator) { 
     numerator = Math.abs(numerator);
     denominator = Math.abs(denominator);
     return numerator * (denominator / (getLCM(numerator, denominator)));
