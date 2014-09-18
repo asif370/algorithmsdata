@@ -75,15 +75,15 @@ public final class RationalNumber {
   }
   
   /** Returns Greatest Common Denominator, used for simplifying */
-  public static long getGCD(long numerator, long denominator) { 
+  public static long getGCD(long denom1, long denom2) { 
     //In case of negatives
-    numerator = Math.abs(numerator);
-    denominator = Math.abs(denominator);
+    denom1 = Math.abs(denom1);
+    denom2 = Math.abs(denom2);
     
-    if(denominator == 0) { 
-      return numerator;
+    if(denom2 == 0) { 
+      return denom1;
     }
-    return getGCD(denominator, numerator % denominator);
+    return getGCD(denom2, denom1 % denom2);
   }
   
   /** Returns the Least Common Multiple, used for multiplying fractions */
@@ -92,10 +92,10 @@ public final class RationalNumber {
   }
   
   /** Returns the Least Common Multiple, used for multiplying fractions */
-  public static long getLCM(long numerator, long denominator) { 
-    numerator = Math.abs(numerator);
-    denominator = Math.abs(denominator);
-    return numerator * (denominator / (getLCM(numerator, denominator)));
+  public static long getLCM(long denom1, long denom2) { 
+    denom1 = Math.abs(denom1);
+    denom2 = Math.abs(denom2);
+    return denom1 * (denom2 / (getLCM(denom1, denom2)));
   }
   
   /** Returns numerator */
