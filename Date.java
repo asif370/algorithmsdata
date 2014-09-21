@@ -1,6 +1,12 @@
 public class Date { 
+  
+  /** Written by Ryan D'souza
+    * Algorithms and Data Structures
+    * Represents a Date (11/29/1996) */
+  
   private final int month, day, year;
   
+  /** Constructor */
   public Date(final int month, final int day, final int year) { 
     this.month = month;
     this.day = day;
