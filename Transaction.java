@@ -8,10 +8,23 @@ public class Transaction {
   private final String customerName;
   private final double price;
   
-  public Transaction(final Date date, final String customerName, final double price) { 
-    this.date = date;
+  public Transaction(final String customerName, final Date date, final double price) { 
     this.customerName = customerName;
+    this.date = date;
     this.price = price;
+  }
+  
+  /** Constructor with String in this format: "Dsouza 11/29/1996 12.99 */
+  public Transaction(final String allParams) throws Exception { 
+    final String[] allItems = allParams.split(" ");
+    
+    if(allItems.length < 2) { 
+      throw new Exception("Invalid Constructor ");
+    }
+    
+    this.customerName = allItems[0];
+    this.date = new Date(allItems[1]);
+    this.price = Double.parseDouble(allItems[2]);
   }
   
   @Override
