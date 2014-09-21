@@ -1,4 +1,9 @@
 public class Transaction { 
+  
+  /** Written by Ryan D'souza
+    * Algorithms and Data Structures 
+    * Represents a Transaction */
+  
   private final Date date;
   private final String customerName;
   private final double price;
