@@ -8,5 +8,13 @@ public class Big_Integer {
     this.digits = new int[SIZE];
   }
   
+  public Big_Integer(final String number) { 
+    this.digits = parse(number);
+  }
+  
+  public int[] parse(final String number) { 
+    return null;
+  }
+  
   
 }
