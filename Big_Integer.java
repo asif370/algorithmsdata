@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Big_Integer { 
   /** Class to hold large integers in arrays 
     * Performs some computations 
@@ -108,7 +110,12 @@ public class Big_Integer {
     System.out.println(one.isLessThan(two));
     System.out.println(one.add(two).toString());
   }
-      
+  
+  /** Returns String representation of array */
+  @Override
+  public String toString() { 
+    return Arrays.toString(digits);
+  }
     
   /** Returns true if both integers are equal */
   @Override
