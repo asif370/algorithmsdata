@@ -3,7 +3,9 @@ import java.util.Arrays;
 public class Big_Integer { 
   /** Class to hold large integers in arrays 
     * Performs some computations 
-    Note: Project specifications require data to be held in int arrays*/
+    * Note: Project specifications require data to be held in int arrays
+    * This was built as a sample for my friend in AP CS 
+    */
   private static final int SIZE = 40;
   
   private final int[] digits;
@@ -84,31 +86,34 @@ public class Big_Integer {
     return new Big_Integer(sumValues);
   }
   
-   
-  /** Returns a new integer that represents difference of this int + other int */
-  public Big_Integer subtract(final Big_Integer otherNumber) { 
-    final int[] otherDigits = otherNumber.getDigits();
-    final int[] sumValues = new int[SIZE];
-    
-    for(int i = otherDigits.length - 1; i >= 0; i--) { 
-      if(otherDigits[i] > this.digits[i]) { 
-        if(i >= 0) { 
-        }
-        else { 
-        }
-      }
+  /** Returns true if number is greater than or equal to other number */
+  public boolean isGreaterThanOrEqualTo(final Big_Integer otherNum) { 
+    if(this.equals(otherNum)) { 
+      return true;
     }
-    return null;
+    return this.isGreaterThan(otherNum);
+  }
+  
+  /** Returns true if number is less than or equal to other number */
+  public boolean isLessThanOrEqualTo(final Big_Integer otherNum) { 
+    if(this.equals(otherNum)) { 
+      return true;
+    }
+    return this.isLessThan(otherNum);
   }
   
   public static void main(String[] ryan) { 
     final Big_Integer one = new Big_Integer("123");
     final Big_Integer two = new Big_Integer("124");
     
+    System.out.println(one.toString());
+    System.out.println(two.toString());
     System.out.println(one.equals(two));
     System.out.println(one.isGreaterThan(two));
     System.out.println(one.isLessThan(two));
     System.out.println(one.add(two).toString());
+    System.out.println(one.isGreaterThanOrEqualTo(two));
+    System.out.println(one.isLessThanOrEqualTo(two));
   }
   
   /** Returns String representation of array */
@@ -116,7 +121,7 @@ public class Big_Integer {
   public String toString() { 
     return Arrays.toString(digits);
   }
-    
+  
   /** Returns true if both integers are equal */
   @Override
   public boolean equals(final Object other) { 
