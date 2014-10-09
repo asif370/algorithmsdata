@@ -31,6 +31,23 @@ public class Big_Integer {
     return theNumber;
   }
   
+  /** Returns true if this is less than other number */
+  public boolean isLessThan(final Big_Integer otherNumber) { 
+    final int[] otherDigits = otherNumber.getDigits();
+    
+    if(this.equals(otherNumber)) { 
+      return true;
+    }
+    
+    for(int i = 0; i < otherDigits.length; i++) { 
+      if(this.digits[i] > otherDigits[i]) { 
+        return false;
+      }
+    }
+    
+    return true;
+  }
+  
   /** Returns true if both integers are equal */
   @Override
   public boolean equals(final Object other) { 
