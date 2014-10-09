@@ -48,6 +48,14 @@ public class Big_Integer {
     return true;
   }
   
+  /** Returns true if this is greater than other number */
+  public boolean isGreaterThan(final Big_Integer otherNumber) { 
+    if(this.equals(otherNumber)) { 
+      return true;
+    }
+    return !isLessThan(otherNumber);
+  }
+    
   /** Returns true if both integers are equal */
   @Override
   public boolean equals(final Object other) { 
