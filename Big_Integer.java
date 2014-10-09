@@ -62,7 +62,7 @@ public class Big_Integer {
     return !isLessThan(otherNumber);
   }
   
-  /** Returns a new integer */
+  /** Returns a new integer that represents sum of this int + other int */
   public Big_Integer add(final Big_Integer otherNumber) {
     final int[] otherDigits = otherNumber.getDigits();
     final int[] sumValues = new int[SIZE];
@@ -81,6 +81,34 @@ public class Big_Integer {
     }
     return new Big_Integer(sumValues);
   }
+  
+   
+  /** Returns a new integer that represents difference of this int + other int */
+  public Big_Integer subtract(final Big_Integer otherNumber) { 
+    final int[] otherDigits = otherNumber.getDigits();
+    final int[] sumValues = new int[SIZE];
+    
+    for(int i = otherDigits.length - 1; i >= 0; i--) { 
+      if(otherDigits[i] > this.digits[i]) { 
+        if(i >= 0) { 
+        }
+        else { 
+        }
+      }
+    }
+    return null;
+  }
+  
+  public static void main(String[] ryan) { 
+    final Big_Integer one = new Big_Integer("123");
+    final Big_Integer two = new Big_Integer("124");
+    
+    System.out.println(one.equals(two));
+    System.out.println(one.isGreaterThan(two));
+    System.out.println(one.isLessThan(two));
+    System.out.println(one.add(two).toString());
+  }
+      
     
   /** Returns true if both integers are equal */
   @Override
