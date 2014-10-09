@@ -12,9 +12,13 @@ public class Big_Integer {
     this.digits = parse(number);
   }
   
-  public int[] parse(final String number) { 
-    return null;
+  public static int[] parse(final String number) { 
+    final int[] theNumber = new int[SIZE];
+    final char[] digits = number.toCharArray();
+    
+    for(int i = digits.length - 1, startAt = SIZE - 1; i >= 0 && startAt >= 0; startAt--, i--) { 
+      theNumber[startAt] = ((int) digits[i]) - 48;
+    }
+    return theNumber;
   }
-  
-  
 }
