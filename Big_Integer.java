@@ -1,17 +1,21 @@
 public class Big_Integer { 
-  /** Class to hold large integers in arrays */
+  /** Class to hold large integers in arrays 
+    * Performs some computations */
   private static final int SIZE = 40;
   
   private final int[] digits;
   
+  /** Default constructor */
   public Big_Integer() { 
     this.digits = new int[SIZE];
   }
   
+  /** Constructor with number as a String */
   public Big_Integer(final String number) { 
     this.digits = parse(number);
   }
   
+  /** Returns an int[] of the number (passed as a string */
   public static int[] parse(final String number) { 
     final int[] theNumber = new int[SIZE];
     final char[] digits = number.toCharArray();
