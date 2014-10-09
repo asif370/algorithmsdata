@@ -1,6 +1,7 @@
 public class Big_Integer { 
   /** Class to hold large integers in arrays 
-    * Performs some computations */
+    * Performs some computations 
+    Note: Project specifications require data to be held in int arrays*/
   private static final int SIZE = 40;
   
   private final int[] digits;
@@ -13,6 +14,11 @@ public class Big_Integer {
   /** Constructor with number as a String */
   public Big_Integer(final String number) { 
     this.digits = parse(number);
+  }
+  
+  /** Private constructor, used in add/subtract methods */
+  private Big_Integer(final int[] digits) { 
+    this.digits = digits;
   }
   
   /** Returns the digits */
@@ -54,6 +60,26 @@ public class Big_Integer {
       return true;
     }
     return !isLessThan(otherNumber);
+  }
+  
+  /** Returns a new integer */
+  public Big_Integer add(final Big_Integer otherNumber) {
+    final int[] otherDigits = otherNumber.getDigits();
+    final int[] sumValues = new int[SIZE];
+    
+    for(int i = otherDigits.length - 1; i >= 0; i--) { 
+      final int sum = otherDigits[i] + this.digits[i];
+      if(sum > 10) { 
+        sumValues[i] = sum % 10;
+        if((i - 1) >= 0) { 
+          otherDigits[i] += i;
+        }
+      }
+      else { 
+        sumValues[i] = sum;
+      }
+    }
+    return new Big_Integer(sumValues);
   }
     
   /** Returns true if both integers are equal */
