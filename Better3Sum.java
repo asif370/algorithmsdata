@@ -6,8 +6,6 @@ import java.util.Arrays;
   * counts the number of three elements in an array
   * whose sum = 0 in N^2 log (N) time */
 
-import java.util.Arrays;
-
 public class Better3Sum { 
   
   /** Returns number of triples with sum of 0*/
@@ -17,7 +15,8 @@ public class Better3Sum {
     for (int i = 0; i < array.length; i++) {
       for (int j = i+1; j < array.length; j++) {
         int k = Arrays.binarySearch(array, -(array[i] + array[j]));
-        if (k > j) cnt++;
+        if (k > j) 
+          cnt++;
       }
     }
     return cnt;
