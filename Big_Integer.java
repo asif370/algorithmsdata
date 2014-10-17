@@ -9,20 +9,37 @@ public class Big_Integer {
   private static final int SIZE = 40;
   
   private final int[] digits;
+  private final boolean isNegative;
   
   /** Default constructor */
   public Big_Integer() { 
     this.digits = new int[SIZE];
+    this.isNegative = false;
   }
   
   /** Constructor with number as a String */
   public Big_Integer(final String number) { 
     this.digits = parse(number);
+    this.isNegative = false;
+  }
+  
+    
+  /** Constructor with number as a String */
+  public Big_Integer(final String number, final boolean isNegative) { 
+    this.digits = parse(number);
+    this.isNegative = isNegative;
   }
   
   /** Private constructor, used in add/subtract methods */
   private Big_Integer(final int[] digits) { 
     this.digits = digits;
+    this.isNegative = false;
+  }
+  
+  /** Private constructor, used in add/subtract methods */
+  private Big_Integer(final int[] digits, final boolean isNegative) { 
+    this.digits = digits;
+    this.isNegative = isNegative;
   }
   
   /** Returns the digits */
@@ -102,18 +119,51 @@ public class Big_Integer {
     return this.isLessThan(otherNum);
   }
   
+  /** Return true if number is negative */
+  public boolean isNegative() { 
+    return this.isNegative;
+  }
+  
+  //this - otherNum
+  public Big_Integer subtract(final Big_Integer otherNum) { 
+    if(otherNum.isNegative()) { 
+      return this.add(otherNum);
+    }
+    
+    final int[] otherDigits = otherNum.getDigits();
+    final int[] resultDigits = new int[SIZE];
+    int borrow = 0; 
+    
+    for(int i = 0; i < otherDigits.length - 1; i++) { 
+      resultDigits[i] = this.digits[i] - otherDigits[i] - borrow;
+      
+      if(resultDigits[i] < 10) { 
+        borrow = 1;
+        resultDigits[i] += 10;
+        otherDigits[i+1] -= 1;
+      }
+      else { 
+        borrow = 0;
+      } 
+    }
+    
+    
+    return new Big_Integer(resultDigits);
+  }
+  
   public static void main(String[] ryan) { 
     final Big_Integer one = new Big_Integer("123");
     final Big_Integer two = new Big_Integer("124");
     
     System.out.println(one.toString());
     System.out.println(two.toString());
-    System.out.println(one.equals(two));
+    System.out.println(one.subtract(two).toString());
+    /*System.out.println(one.equals(two));
     System.out.println(one.isGreaterThan(two));
     System.out.println(one.isLessThan(two));
     System.out.println(one.add(two).toString());
     System.out.println(one.isGreaterThanOrEqualTo(two));
-    System.out.println(one.isLessThanOrEqualTo(two));
+    System.out.println(one.isLessThanOrEqualTo(two)); */
   }
   
   /** Returns String representation of array */
