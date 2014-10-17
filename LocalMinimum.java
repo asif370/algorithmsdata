@@ -10,7 +10,21 @@ public class LocalMinimum {
   
   private static final Random generator = new Random();
   
+  /** Run time: N * N time */
   public static int smallestValue(final int[][] array) {
+    int smallestNumber = Integer.MAX_VALUE;
+    
+    //index[0] has array of all the smallest values from each array
+    for(int i = 0; i < array[0].length; i++) { 
+      if(array[0][i] < smallestNumber) { 
+        smallestNumber = array[0][i];
+      }
+    }
+    return smallestNumber;
+  }
+  
+  /** Inefficient, does so in ~  N * Nlog(N) time */
+  public static int smallestValueOld(final int[][] array) {
     //Sort each of the arrays
     for(int i = 0; i < array.length; i++) { 
       Arrays.sort(array[i]);
