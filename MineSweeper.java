@@ -8,13 +8,17 @@ public class MineSweeper {
   
   //Restrict pieces to only those in enum
   private final PIECES[][] field;
+  private final Character[][] fieldNumbers;
   
   public MineSweeper() { 
-    this.M = 4; //StdIn.readInt();
-    this.N = 4; //StdIn.readInt();
-    this.field = new PIECES[this.M][this.N];
+    final String[] nums = StdIn.readLine().split(" ");
     
-    for(int i = 0; i <= this.N - 1; i++) { 
+    this.M = Integer.parseInt(nums[0]);
+    this.N = Integer.parseInt(nums[1]);
+    this.field = new PIECES[this.M][this.N];
+    this.fieldNumbers = new Character[this.M][this.N];
+    
+    for(int i = 0; i < field.length; i++) { 
       final String input = StdIn.readLine();
       
       for(int y = 0; y < input.length(); y++ ) {
@@ -27,16 +31,22 @@ public class MineSweeper {
       }
     }
     
-    printArray();
-    
-  }
-  
-  private int numSpace(final int myX, final int myY) { 
-    if(field[myX][myY] == PIECES.MINE) { 
-      return 0;
+    for(int i = 0; i < field.length; i++) { 
+      for(int y = 0; y < field[i].length; y++) { 
+        this.fieldNumbers[i][y] = numSpace(i, y);
+      }
     }
     
+    printArray(fieldNumbers);
+  }
+  
+  private Character numSpace(final int myX, final int myY) { 
     int mines = 0;
+    
+    if(field[myX][myY] == PIECES.MINE) { 
+      System.out.print("HERE");
+      return '*';
+    }
     
     if(myX > 0) { 
       if(field[myX - 1][myY] == PIECES.MINE) { 
@@ -47,6 +57,11 @@ public class MineSweeper {
           mines++;
         }
       }
+      if(myY < field.length - 1) { 
+        if(field[myX - 1][myY + 1] == PIECES.MINE) { 
+          mines++;
+        }
+      }
     }
     if(myX < field.length - 1) { 
       if(field[myX + 1][myY] == PIECES.MINE) { 
@@ -54,6 +69,11 @@ public class MineSweeper {
       }
       if(myY < field[0].length - 1) { 
         if(field[myX + 1][myY + 1] == PIECES.MINE) { 
+          mines++;
+        }
+      }
+      if(myY > 0) { 
+        if(field[myX + 1][myY - 1] == PIECES.MINE) { 
           mines++;
         }
       }
@@ -68,13 +88,13 @@ public class MineSweeper {
         mines++;
       }
     }
-    return mines;
+    return (char) ('0' + mines);
   }
   
   
-  private void printArray() { 
-    for(int i = 0; i < field.length; i++) { 
-      System.out.println(Arrays.toString(field[i]));
+  private static void printArray(final Object[][] array) { 
+    for(int i = 0; i < array.length; i++) { 
+      System.out.println(Arrays.toString(array[i]));
     }
   }
   
@@ -86,6 +106,4 @@ public class MineSweeper {
   private enum PIECES { 
     MINE, SAFE;
   }
-  
-  
 }
