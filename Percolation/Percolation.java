@@ -5,18 +5,20 @@ import java.util.Arrays;
 
 public class Percolation {
   private final int N;
-  private final SITE[] board;
+  private final SITE[][] board;
   
   /** Constructor
     * Reads in int N for board size
     * Initializes array to all blocked */
   public Percolation() { 
     this.N = StdIn.readInt();
-    this.board = new SITE[N * N];
+    this.board = new SITE[N][N];
     
-    for(int i = 0; i < this.board.length; i++) { 
-      this.board[i] = SITE.BLOCKED;
-    }
+      for(int i = 0; i < this. board.length; i++) { 
+          for(int y = 0; y < this.board[i].length; y++) { 
+              this.board[i][y] = SITE.BLOCKED;
+          }
+      }
   }
   
   /** Opens location in row i, column j
@@ -25,13 +27,14 @@ public class Percolation {
       if (i >= N || j >= N) { 
           throw new IllegalArgumentException();
       }
-
-      board[j * N + i] = SITE.EMPTY;
+      
+      board[i][j] = SITE.EMPTY;
   }
   
   public static void main(String[] ryan) { 
       final Percolation perc = new Percolation();
-      System.out.println(Arrays.toString(perc.getBoard()));
+      perc.open(0, 2);
+      perc.printBoard();
   }
   
   /** Enum representing site. Can be 1 of three stages
@@ -42,7 +45,16 @@ public class Percolation {
     EMPTY, FULL, BLOCKED;
   }
 
-  public SITE[] getBoard() { 
+  public void printBoard() { 
+      for(int i = 0; i < N; i++) { 
+          for(int y = 0; y < N; y++) { 
+              System.out.print(board[i][y] + "\t");
+          }
+          System.out.println("");
+      }
+  }
+
+  public SITE[][] getBoard() { 
       return this.board;
   }
 }
