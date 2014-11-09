@@ -27,8 +27,15 @@ public class Percolation {
       if (i >= N || j >= N) { 
           throw new IllegalArgumentException();
       }
-      
       board[i][j] = SITE.EMPTY;
+  }
+
+  /** Is site open */
+  public boolean isOpen(final int i, final int j) { 
+      if(i >= N || j >= N) { 
+          throw new IllegalArgumentException();
+      }
+      return board[i][j] == SITE.EMPTY;
   }
   
   public static void main(String[] ryan) { 
