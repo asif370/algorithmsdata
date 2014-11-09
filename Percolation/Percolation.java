@@ -27,7 +27,14 @@ public class Percolation {
         if (i >= N || j >= N) { 
             throw new IllegalArgumentException();
         }
-        board[i][j] = SITE.EMPTY;
+
+        //If it's the top row, is automatically full
+        if(j == 0) { 
+            board[j][i] = SITE.FULL;
+        }
+        else {
+            board[j][i] = SITE.EMPTY;
+        }
     }
 
     /** Is site open */
@@ -35,7 +42,7 @@ public class Percolation {
         if(i >= N || j >= N) { 
             throw new IllegalArgumentException();
         }
-        return board[i][j] == SITE.EMPTY;
+        return board[j][i] != SITE.BLOCKED;
     }
 
     /** Checks neighboring areas and returns true if
@@ -105,8 +112,17 @@ public class Percolation {
 
     public static void main(String[] ryan) { 
         final Percolation perc = new Percolation();
-        perc.open(0, 2);
-        perc.printBoard();
+
+        int counter = 0;
+
+        while(true) { 
+            StdOut.println("Open: ");
+            final int x = StdIn.readInt();
+            final int y = StdIn.readInt();
+            StdOut.println("Open (" + x + ", " + y + ")");
+            perc.open(x, y);
+            perc.printBoard();
+        }
     }
 
     /** Enum representing site. Can be 1 of three stages
