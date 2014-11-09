@@ -24,7 +24,7 @@ public class Percolation {
     /** Opens location in row i, column j
      * Has to calculate that based on a single array */
     public void open(final int i, final int j) { 
-        if (i >= N || j >= N) { 
+        if (i > N || j > N) { 
             throw new IllegalArgumentException();
         }
 
@@ -35,11 +35,15 @@ public class Percolation {
         else {
             board[j][i] = SITE.EMPTY;
         }
+
+        if(isConnected(i, j)) { 
+            board[j][i] = SITE.FULL;
+        }
     }
 
     /** Is site open */
     public boolean isOpen(final int i, final int j) { 
-        if(i >= N || j >= N) { 
+        if(i > N || j > N) { 
             throw new IllegalArgumentException();
         }
         return board[j][i] != SITE.BLOCKED;
@@ -47,28 +51,16 @@ public class Percolation {
 
     /** Checks neighboring areas and returns true if
      * a site is full */
-    private boolean isConnected(final int i, final int j) { 
+    private boolean isConnected(final int j, final int i) { 
         if(this.board[i][j] == SITE.FULL) { 
             return true;
         }
 
-        //Check top left diagonal
-        if(i > 0 && j > 0) {
-            if(this.board[i-1][j-1] == SITE.FULL) { 
-                return true;
-            }
-        }
+        final int N = this.N - 1;
 
         //Check directly above
         if(j > 0) { 
             if(this.board[i][j-1] == SITE.FULL) { 
-                return true;
-            }
-        }
-
-        //Check top right diagonal
-        if(j > 0 && i < N) { 
-            if(this.board[i + 1][j-1] == SITE.FULL) { 
                 return true;
             }
         }
@@ -87,23 +79,9 @@ public class Percolation {
             }
         }
 
-        //Check bottom left diagonal
-        if(i > 0 && j < N) { 
-            if(this.board[i - 1][j + 1] == SITE.FULL) { 
-                return true;
-            }
-        }
-
         //Check directly below
         if(j < N) { 
             if(this.board[i][j + 1] == SITE.FULL) { 
-                return true;
-            }
-        }
-
-        //Check bottom right diagonal
-        if(i < N && j < N) { 
-            if(this.board[i + 1][j + 1] == SITE.FULL) { 
                 return true;
             }
         }
