@@ -1,5 +1,4 @@
 import java.util.Arrays;
-
 /** Percolation
  * isOpen/isConnected id[num] = itself */
 
