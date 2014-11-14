@@ -89,6 +89,10 @@ public class QuickUnionUF {
         id[rootP] = rootQ; 
         count--;
     }
+    
+    public int[] getID() { 
+      return this.id;
+    }
 
     /**
      * Reads in a sequence of pairs of integers (between 0 and N-1) from standard input, 
@@ -105,6 +109,7 @@ public class QuickUnionUF {
             if (uf.connected(p, q)) continue;
             uf.union(p, q);
             StdOut.println(p + " " + q);
+            StdOut.println(java.util.Arrays.toString(uf.getID()));
         }
         StdOut.println(uf.count() + " components");
     }
