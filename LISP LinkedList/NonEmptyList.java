@@ -12,6 +12,12 @@ public class NonEmptyList extends LispList {
         this.tail = tail;
     }
 
+    /** Empty constructor */
+    public NonEmptyList() { 
+        this.head = null;
+        this.tail = null;
+    }
+
     @Override
     /** Returns true if this list is empty */
     public boolean isEmpty() { 
@@ -22,6 +28,16 @@ public class NonEmptyList extends LispList {
     /** Returns the head of the object */
     public Object head() { 
         return this.head;
+    }
+
+    /** Set the head */
+    public void setHead(final Object head) { 
+        this.head = head;
+    }
+
+    /** Set the tail */
+    public void setTail(final LispList tail) { 
+        this.tail = tail;
     }
 
     @Override

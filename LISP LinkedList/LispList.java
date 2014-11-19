@@ -5,40 +5,20 @@
 
 public abstract class LispList { 
 
-    public static LispList emptyList = new EmptyList();
-    public static LispList listHead = new EmptyList();
-    
-    public static LispList cons(final Object head) { 
-        //If the head of the list is empty
-        if(listHead instanceof EmptyList) {
-            //Make a nonemptylist with empty as tail
-            listHead = new NonEmptyList(head, emptyList);
-       } 
-        
-        //Else, add a new element to the tail
-        else {
-            //First, go to last element
-            LispList tempHead = listHead;
-            while(tempHead.tail() != null) {
-                //If last element is empty
-                if((tempHead.tail() instanceof EmptyList)) { 
-                    //Add the new item to tail
-                    tempHead = new NonEmptyList(head,tempHead); 
-                    //Then add empty list to tail
-                    tempHead = new NonEmptyList(null, new EmptyList());
-                }
+    //Static variable for constructor (see main method for example
+    public static LispList NIL = new EmptyList();
 
-                //Otherwise, keep on going
-                else { 
-                    tempHead = tempHead.tail();
-                }
-            }
+    /** For constructor, see main method for example */
+    public static NonEmptyList cons(final Object head) { 
+        if(NIL instanceof EmptyList) { 
+            NIL = new NonEmptyList(head, new EmptyList());
         }
-
-        return listHead;
+        else { 
+            NIL = new NonEmptyList(head, NIL);
+        }
+        System.out.println(NIL.toString());
+        return (NonEmptyList) NIL;
     }
-
-
 
     public abstract boolean isEmpty();
 
@@ -52,7 +32,14 @@ public abstract class LispList {
 
     public static void main(String[] ryan) { 
         NonEmptyList listItem = new NonEmptyList("Ryan", new NonEmptyList("D'souza", new EmptyList()));
+        System.out.println(listItem.length());
+
+        System.out.println(listItem.toString());
+
+        listItem = LispList.NIL.cons("Elia").cons("JERE").cons("Algors");
 
         System.out.println(listItem.length());
+
+        System.out.println(listItem.toString());
     }
 }
