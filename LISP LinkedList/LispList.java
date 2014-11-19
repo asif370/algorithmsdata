@@ -1,7 +1,20 @@
 /** 
  * Written by Ryan D'souza
  * Algorithms and Data Structures
- * Represents a list in LISP */
+ * Represents a list in LISP
+ *
+ * Dependencies: EmptyList.java NonEmptyList.java
+ *
+ * Run Instructions: javac *.java
+ * java LispList
+ *
+ *
+ * OUTPUT: 
+ * 2 
+ * Constructor 1 Constructor 2
+ * 
+ * 3
+ * Diff. Constructor 3 Diff. Constructor 2 Diff. Constructor 1 */
 
 public abstract class LispList { 
 
@@ -16,7 +29,6 @@ public abstract class LispList {
         else { 
             NIL = new NonEmptyList(head, NIL);
         }
-        System.out.println(NIL.toString());
         return (NonEmptyList) NIL;
     }
 
@@ -31,12 +43,12 @@ public abstract class LispList {
     public abstract String toString();
 
     public static void main(String[] ryan) { 
-        NonEmptyList listItem = new NonEmptyList("Ryan", new NonEmptyList("D'souza", new EmptyList()));
+        NonEmptyList listItem = new NonEmptyList("Constructor 1", new NonEmptyList("Constructor 2", new EmptyList()));
         System.out.println(listItem.length());
 
         System.out.println(listItem.toString());
 
-        listItem = LispList.NIL.cons("Elia").cons("JERE").cons("Algors");
+        listItem = LispList.NIL.cons("Diff. Constructor 1").cons("Diff. Constructor 2").cons("Diff. Constructor 3");
 
         System.out.println(listItem.length());
 

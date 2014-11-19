@@ -1,7 +1,10 @@
 /** 
  * Written by Ryan D'souza
  * Algorithms and Data Structures
- * Represents a nonempty list in LISP */
+ * Represents a nonempty list in LISP 
+ *
+ * See LispList.java for dependency/compilation/run information
+ * */
 
 public class NonEmptyList extends LispList { 
     private Object head;

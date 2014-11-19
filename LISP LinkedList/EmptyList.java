@@ -1,7 +1,10 @@
 /** 
  * Written by Ryan D'souza
  * Algorithms and Data Structures
- * Represents an empty list */
+ * Represents an empty list 
+ *
+ * See LispList.java for dependency/compilation/run info 
+ * */
 
 public class EmptyList extends LispList { 
    
