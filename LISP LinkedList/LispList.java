@@ -18,7 +18,7 @@
 
 public abstract class LispList { 
 
-    //Static variable for constructor (see main method for example
+    //Static variable for constructor (see main method for example)
     public static LispList NIL = new EmptyList();
 
     /** For constructor, see main method for example */

@@ -15,7 +15,7 @@ public class EmptyList extends LispList {
    @Override
    /** Returns true because it's an empty list */
    public boolean isEmpty() { 
-       return false;
+       return true;
    }
 
    @Override
