@@ -10,7 +10,9 @@ public class Sort {
     private static final Random generator = new Random();
 
     /** Perform selection sort to sort the array
-     * O(N^2) performance */
+     * O(N^2) performance
+     * ~N^2 / 2 compares + N exchanges
+     * */
     public static void selectionSort(final int[] array) { 
         for(int i = 0; i < array.length; i++) { 
             int min = Integer.MAX_VALUE;
