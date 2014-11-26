@@ -54,4 +54,6 @@ public abstract class LispList {
 
         System.out.println(listItem.toString());
     }
+
+    public abstract boolean contains(Object other);
 }

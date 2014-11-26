@@ -43,4 +43,10 @@ public class EmptyList extends LispList {
    public String toString() { 
        return "";
    }
+
+   @Overide
+   /** Returns true if other object is same as emptylist */
+   public boolean contains(final Object other) { 
+       return other instanceof EmptyList;
+   }
 }

@@ -70,4 +70,11 @@ public class NonEmptyList extends LispList {
     public String toString() { 
         return this.head.toString() + " " + this.tail.toString();
     }
+
+    @Override
+    public boolean contains(Object other) { 
+        if(!(other instanceof NonEmptyList)) { 
+            return false;
+        }
+    }
 }
