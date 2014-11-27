@@ -44,7 +44,7 @@ public class EmptyList extends LispList {
        return "";
    }
 
-   @Overide
+   @Override
    /** Returns true if other object is same as emptylist */
    public boolean contains(final Object other) { 
        return other instanceof EmptyList;

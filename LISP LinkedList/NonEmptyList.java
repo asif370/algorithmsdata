@@ -76,5 +76,17 @@ public class NonEmptyList extends LispList {
         if(!(other instanceof NonEmptyList)) { 
             return false;
         }
+
+        final NonEmptyList list = (NonEmptyList) other;
+
+        LispList start = list.tail();
+
+        while(start != null && start.head() != null) { 
+            if(start.head().equals(other)) { 
+                return true;
+            }
+        }
+
+        return false;
     }
 }
