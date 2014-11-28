@@ -21,6 +21,27 @@ public class NonEmptyList extends LispList {
         this.tail = null;
     }
 
+    /** Merges two lists */
+    public NonEmptyList merge(final LispList other) { 
+        //If it's an empty list, don't do anything
+        if(other instanceof EmptyList) { 
+            return this;
+        }
+
+        //Find the last node of the other list
+        LispList otherLast = other.tail();
+
+        //While there is a tail and it's not empty
+        while(otherLast.tail() != null && !(otherLast.tail() instanceof EmptyList)) { 
+            otherLast = otherLast.tail();
+        }
+
+        //Set the last node to this first
+        otherLast.setTail(this);
+
+        return this;
+    }
+
     @Override
     /** Returns true if this list is empty */
     public boolean isEmpty() { 
@@ -38,6 +59,7 @@ public class NonEmptyList extends LispList {
         this.head = head;
     }
 
+    @Override
     /** Set the tail */
     public void setTail(final LispList tail) { 
         this.tail = tail;

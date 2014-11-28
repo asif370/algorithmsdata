@@ -33,6 +33,13 @@ public class EmptyList extends LispList {
    }
 
    @Override
+   /** Throws exception (project specification) 
+    * because there is no tail */
+   public void setTail(final LispList other) { 
+       throw new UnsupportedOperationException();
+   }
+
+   @Override
    /** Returns the length of the list */
    public int length() { 
        return 0;

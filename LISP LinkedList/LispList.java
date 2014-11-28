@@ -42,6 +42,8 @@ public abstract class LispList {
 
     public abstract String toString();
 
+    public abstract void setTail(LispList other);
+
     public static void main(String[] ryan) { 
         NonEmptyList listItem = new NonEmptyList("Constructor 1", new NonEmptyList("Constructor 2", new EmptyList()));
         System.out.println(listItem.length());
