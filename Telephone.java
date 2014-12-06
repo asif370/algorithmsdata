@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.io.BufferedReader;
 import java.io.FileReader;
+
 /** Written by Ryan D'souza
  * Algorithms and Data Structures
  * Reads a data set of 1,000 names and numbers from a file
@@ -21,6 +22,7 @@ public class Telephone {
         public final String name;
         public final String phoneNumber;
 
+        /** Constructor */
         public Person(final String name, final String phoneNumber) { 
             this.name = name;
             this.phoneNumber = phoneNumber;
@@ -43,6 +45,7 @@ public class Telephone {
         };
     }
 
+    /** Constructor with fileName of phone numbers and names */
     public Telephone(final String fileName) { 
         this.names = new ArrayList<Person>();
         this.phoneNumbers = new ArrayList<Person>();
@@ -71,6 +74,7 @@ public class Telephone {
         }
     }
 
+    /** Constructor with array of People */
     public Telephone(final Person[] people) { 
         this.names = new ArrayList<Person>(Arrays.asList(people));
         this.phoneNumbers = new ArrayList<Person>(Arrays.asList(people));
