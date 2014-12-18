@@ -48,6 +48,15 @@ public class Term implements Comparable<Term> {
 
         @Override
         public int compare(final Term t1, final Term t2) { 
+            if(t1.query.length() < r && t2.query.length() < r) { 
+                return t1.query.compareTo(t2.query);
+            }
+            if(t1.query.length() < r) { 
+                return t1.query.compareTo(t2.query.substring(r));
+            }
+            if(t2.query.length() < r) { 
+                return t1.query.substring(r).compareTo(t2.query);
+            }
             return t1.query.substring(r).compareTo(t2.query.substring(r));
         }
     }
