@@ -48,6 +48,15 @@ public class Term implements Comparable<Term> {
         }
     }
 
+    //For sorting in reverse order
+    public static final Comparator<Term> byReverseWeightOrder = new Comparator<Term>() { 
+        @Override
+        public int compare(final Term t1, final Term t2) { 
+            //Compare opposites for reverse
+            return t2.query.compareTo(t1.query);
+        }
+    };
+
     public String toString() { 
         return this.query + this.weight;
     }
