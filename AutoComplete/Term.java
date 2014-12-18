@@ -39,6 +39,10 @@ public class Term implements Comparable<Term> {
         private final int r;
 
         public byPrefixOrder(final int r) { 
+            if(r < 0) { 
+                throw new IllegalArgumentException();
+            }
+
             this.r = r;
         }
 
