@@ -29,6 +29,25 @@ public class BitTesting {
         return number | number2;
     }
 
+    //Convert number to binary
+    public static String toBinary(int number) { 
+        final Stack<Integer> binary = new Stack<Integer>();
+
+        while(number > 1) { 
+            binary.push(number % 2);
+            number = number / 2;
+        }
+
+        final StringBuilder toString = new StringBuilder("");
+
+        while(!binary.isEmpty()) { 
+            toString.append(binary.pop());
+        }
+
+        return toString.toString();
+    }
+
+
     public static void main(String[] ryan) {
 
         final int original = 8;
@@ -37,5 +56,6 @@ public class BitTesting {
         System.out.println(bitDecrease(original, 3));
         System.out.println(ampersand(72, 184));
         System.out.println(or(72, 184));
+        System.out.println(toBinary(156));
     }
 }
