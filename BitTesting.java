@@ -33,14 +33,11 @@ public class BitTesting {
     public static String toBinary(int number) {
         final Stack<Integer> bits = new Stack<Integer>();
 
-
-        while(number > 0 && bits.size() < 8) { 
+        for(; number > 0 && bits.size() < 8; number /= 2) { 
             bits.push(number % 2);
-            number = number / 2;
-        } 
+        }
 
         final StringBuilder toString = new StringBuilder("");
-
         while(!bits.isEmpty()) { 
             toString.append(bits.pop());
         }
