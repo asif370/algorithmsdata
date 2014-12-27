@@ -33,19 +33,16 @@ public class BitTesting {
     public static String toBinary(int number) {
         final Stack<Integer> bits = new Stack<Integer>();
 
-        while(number > 0) { 
+
+        while(number > 0 && bits.size() < 8) { 
             bits.push(number % 2);
             number = number / 2;
-        }
+        } 
 
         final StringBuilder toString = new StringBuilder("");
 
         while(!bits.isEmpty()) { 
             toString.append(bits.pop());
-        }
-
-        while(toString.length() < 8) {
-            toString.append(0);
         }
 
         return toString.toString();
