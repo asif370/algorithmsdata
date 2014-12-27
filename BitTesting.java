@@ -33,7 +33,7 @@ public class BitTesting {
     public static String toBinary(int number) {
         final Stack<Integer> bits = new Stack<Integer>();
 
-        for(; number > 0 && bits.size() < 8; number /= 2) { 
+        for(; number > 0 || bits.size() < 8; number /= 2) { 
             bits.push(number % 2);
         }
 
@@ -50,10 +50,14 @@ public class BitTesting {
 
         final int original = 8;
 
-        System.out.println(bitIncrease(original, 3));
-        System.out.println(bitDecrease(original, 3));
-        System.out.println(ampersand(72, 184));
-        System.out.println(or(72, 184));
-        System.out.println(toBinary(156));
+        //System.out.println(bitIncrease(original, 3));
+        //System.out.println(bitDecrease(original, 3));
+        //System.out.println(ampersand(72, 184));
+        //System.out.println(or(72, 184));
+        
+        System.out.println("Original:\t" + toBinary(72));
+        System.out.println("Original:\t" + toBinary(184));
+        System.out.println("Ampersan:\t" + toBinary(ampersand(72, 184)));
+        System.out.println("Or:\t\t" + toBinary(or(72, 184)));
     }
 }
