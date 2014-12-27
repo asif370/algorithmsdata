@@ -30,18 +30,22 @@ public class BitTesting {
     }
 
     //Convert number to binary
-    public static String toBinary(int number) { 
-        final Stack<Integer> binary = new Stack<Integer>();
+    public static String toBinary(int number) {
+        final Stack<Integer> bits = new Stack<Integer>();
 
-        while(number > 1) { 
-            binary.push(number % 2);
+        while(number > 0) { 
+            bits.push(number % 2);
             number = number / 2;
         }
 
         final StringBuilder toString = new StringBuilder("");
 
-        while(!binary.isEmpty()) { 
-            toString.append(binary.pop());
+        while(!bits.isEmpty()) { 
+            toString.append(bits.pop());
+        }
+
+        while(toString.length() < 8) {
+            toString.append(0);
         }
 
         return toString.toString();
