@@ -69,6 +69,14 @@ public class BitTesting {
        return num1 ^ num2;
    }
 
+   //Check if number is a power of 2
+   public static boolean isPowerof2(final int number) { 
+       //Logic: 1 subtracted from any power of 2, in binary, will have more than one '1' in it
+       //And that 1 will be in a different location than where it originally was
+       //So, taking the & of that should return 0 if it is a power of 2
+       return ((number - 1) & number) == 0;
+   }
+
     public static void main(String[] ryan) {
 
         final int original = 8;
