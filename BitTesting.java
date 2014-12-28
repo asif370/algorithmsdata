@@ -63,7 +63,11 @@ public class BitTesting {
         return ~original;
     }
 
-    
+   //XOR, returns 1 if either input is 0, not both
+   public static int XOR(final int num1, final int num2) { 
+       //011110010 ^ 10101010 --> 11011000
+       return num1 ^ num2;
+   }
 
     public static void main(String[] ryan) {
 
