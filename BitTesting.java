@@ -57,6 +57,14 @@ public class BitTesting {
         return result;
     }
 
+    //Tilde flips every bit
+    public static int tilde(final int original) { 
+        //01010101 becomes 10101010
+        return ~original;
+    }
+
+    
+
     public static void main(String[] ryan) {
 
         final int original = 8;
