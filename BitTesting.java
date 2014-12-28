@@ -45,6 +45,17 @@ public class BitTesting {
         return toString.toString();
     }
 
+    //Convert binary to whole number
+    public static int fromBinary(final String binary) { 
+        int result = 0, counter = 0;
+
+        for(Character c : binary.toCharArray()) { 
+            result += Math.pow(2, counter) * Character.getNumericValue(c);
+            counter++;
+        }
+
+        return result;
+    }
 
     public static void main(String[] ryan) {
 
@@ -54,7 +65,7 @@ public class BitTesting {
         //System.out.println(bitDecrease(original, 3));
         //System.out.println(ampersand(72, 184));
         //System.out.println(or(72, 184));
-        
+        System.out.println(fromBinary("10011001"));
         System.out.println("Original:\t" + toBinary(72));
         System.out.println("Original:\t" + toBinary(184));
         System.out.println("Ampersan:\t" + toBinary(ampersand(72, 184)));
