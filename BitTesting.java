@@ -70,7 +70,7 @@ public class BitTesting {
    }
 
    //Check if number is a power of 2
-   public static boolean isPowerof2(final int number) { 
+   public static boolean isPowerOf2(final int number) { 
        //Logic: 1 subtracted from any power of 2, in binary, will have more than one '1' in it
        //And that 1 will be in a different location than where it originally was
        //So, taking the & of that should return 0 if it is a power of 2
@@ -81,14 +81,30 @@ public class BitTesting {
 
         final int original = 8;
 
-        //System.out.println(bitIncrease(original, 3));
-        //System.out.println(bitDecrease(original, 3));
-        //System.out.println(ampersand(72, 184));
-        //System.out.println(or(72, 184));
+        //Check some number conversions
+        System.out.println(bitIncrease(original, 3));
+        System.out.println(bitDecrease(original, 3));
+        System.out.println(ampersand(72, 184));
+        System.out.println(or(72, 184));
         System.out.println(fromBinary("10011001"));
+        System.out.println(toBinary(fromBinary("10011001")));
+
+        //More conversions with actual binary
         System.out.println("Original:\t" + toBinary(72));
         System.out.println("Original:\t" + toBinary(184));
         System.out.println("Ampersan:\t" + toBinary(ampersand(72, 184)));
         System.out.println("Or:\t\t" + toBinary(or(72, 184)));
+
+        System.out.println();
+        
+        //Check powers of 2 (results should all be true)
+        for(int i = 1; i < 8; i++) { 
+            System.out.print(Math.pow(2, i) + ": " + isPowerOf2((int)Math.pow(2, i)) + "\t");
+        }
+
+        System.out.println();
+
+        //This was essentially my notes on:
+        // http://www.cprogramming.com/tutorial/bitwise_operators.html
     }
 }
