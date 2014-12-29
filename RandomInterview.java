@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.HashMaps;
 
 /** 
  * Written by Ryan D'souza
@@ -83,7 +84,46 @@ public class RandomInterview {
         }
     }
 
+    //Given a string of a number (example '10101' or '9123') and a map of integers to chars (1 => a,… 26 => z)
+    //print out how many combination there are. (ie: 111 => aaa OR ak OR ka = 3
+    public static void numCombinations() { 
+
+        final String string = "10101";
+        final HashMap<Integer, Character> map = new HashMap<Integer, Character>(26);
+
+        //Update Map with all chars in alphabet
+        for(int i = 0; i < 26; i++) { 
+
+            //i + 1 = key, i + 97 = ASCII character
+            map.put(i + 1, i + 97);
+        }
+
+        //Represents the number of letters that can be pulled
+        //ie. in "10101", letters related to only '1' and '10' can be pulled
+        int numLetters = 0;
+
+        //Go through the array pulling possible combinations
+        for(int i = 0; i < string.length(); i++) { 
+
+            //if the map contains the digit key, remove it (to stop duplicates) and increase the counter
+            if(map.remove(Character.getNumericValue(string.charAt(i))) != null) { 
+                numLetters++;
+            }
+
+            //Check for double digits (like '10')
+            if(i < string.length()) { 
+                if(map.remove(Integer.parseInt(string.substring(i, i + 1))) != null) { 
+                    numLetters++;
+                }
+            }
+        }
+
+        System.out.println("# combos: " + numLetters);
+    }
+
     public static void main(String[] ryan) { 
         localMinMax();
+        infinitelyIntersect();
+        numCombinations();
     }
 }
