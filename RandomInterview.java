@@ -50,6 +50,39 @@ public class RandomInterview {
         }
     }
 
+    //Find if 2 pairs of points, each pair representing a line on a line segment, infinitely intersect
+    public static void infinitelyIntersect() { 
+
+        //Random points
+        final double line1x1 = 5, line1x2 = 10;
+        final double line1y1 = 3, line1y2 = 6;
+
+        final double line2x1 = 100, line2x2 = 350;
+        final double line2y1 = 60, line2y2 = 170;
+
+        //Slope
+        final double line1Slope = (line1y2 - line1y1) / (line1x2 - line1x1);
+        final double line2Slope = (line2y2 - line2y1) / (line2x2 - line2x1);
+
+        //If they don't have the same slope, they interesect only one
+        if(line1Slope != line2Slope) { 
+            System.out.println("Interesect once");
+        }
+
+        // y = mx + b --> y - mx = b;
+        // Calculate b
+        final double line1B = line1y1 - (line1Slope * line1x1);
+        final double line2B = line2y1 - (line2Slope * line2x1);
+
+        //If they don't have the y-intercept, they're parallel
+        if(line1B != line2B) { 
+            System.out.println("Parallel - never intersect");
+        }
+        else { 
+            System.out.println("Infinitely intersect");
+        }
+    }
+
     public static void main(String[] ryan) { 
         localMinMax();
     }
