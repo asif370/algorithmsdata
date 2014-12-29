@@ -1,5 +1,6 @@
 import java.util.Arrays;
-import java.util.HashMaps;
+import java.util.HashMap;
+import java.util.HashSet;
 
 /** 
  * Written by Ryan D'souza
@@ -68,6 +69,7 @@ public class RandomInterview {
         //If they don't have the same slope, they interesect only one
         if(line1Slope != line2Slope) { 
             System.out.println("Interesect once");
+            return;
         }
 
         // y = mx + b --> y - mx = b;
@@ -88,14 +90,15 @@ public class RandomInterview {
     //print out how many combination there are. (ie: 111 => aaa OR ak OR ka = 3
     public static void numCombinations() { 
 
-        final String string = "10101";
+        final String string = "11110101";
         final HashMap<Integer, Character> map = new HashMap<Integer, Character>(26);
+        final HashSet<Character> removedChars = new HashSet<Character>();
 
         //Update Map with all chars in alphabet
         for(int i = 0; i < 26; i++) { 
 
             //i + 1 = key, i + 97 = ASCII character
-            map.put(i + 1, i + 97);
+            map.put(i + 1, (char) (i + 97));
         }
 
         //Represents the number of letters that can be pulled
@@ -105,20 +108,30 @@ public class RandomInterview {
         //Go through the array pulling possible combinations
         for(int i = 0; i < string.length(); i++) { 
 
-            //if the map contains the digit key, remove it (to stop duplicates) and increase the counter
-            if(map.remove(Character.getNumericValue(string.charAt(i))) != null) { 
-                numLetters++;
-            }
+            //Iterate through for longer keys (ie. 101, 1010, 101010)
+            for(int y = i; y < string.length(); y++) { 
 
-            //Check for double digits (like '10')
-            if(i < string.length()) { 
-                if(map.remove(Integer.parseInt(string.substring(i, i + 1))) != null) { 
+                //the key
+                final int key = i == y ? Character.getNumericValue(i) : Integer.parseInt(string.substring(i, y));
+
+                //If it has a value, add it to the set (which discounts duplicates) and 
+                //to the overall count
+                final Character val = map.get(key);
+
+                if(val != null) { 
                     numLetters++;
+                    System.out.println("key: " + key + "\t" + val);
+                    removedChars.add(val);
                 }
             }
         }
 
-        System.out.println("# combos: " + numLetters);
+        //Factorial
+        int fact = 1;
+        for(int i = 1; i <= numLetters; i++) { 
+            fact *= i;
+        }
+        System.out.println("# combos: " + fact);
     }
 
     public static void main(String[] ryan) { 
