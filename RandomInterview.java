@@ -134,9 +134,26 @@ public class RandomInterview {
         System.out.println("# combos: " + fact);
     }
 
+    //Square root
+    public static void sqrt() { 
+        final double number = 12;
+
+        double result = number / 2;
+        double temp = 0;
+
+        do { 
+            temp = result;
+            result = (temp + (number / temp)) / 2;
+        } while ((temp - result) != 0);
+
+        System.out.println("\tSQRT: " + number + " is: " + result);
+    }
+
     public static void main(String[] ryan) { 
-        localMinMax();
-        infinitelyIntersect();
-        numCombinations();
+        //localMinMax();
+        //infinitelyIntersect();
+        //numCombinations();
+
+        sqrt();
     }
 }
