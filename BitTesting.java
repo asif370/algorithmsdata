@@ -57,6 +57,22 @@ public class BitTesting {
         return result;
     }
 
+    //See if bits of number are palindrome
+    public static boolean isPalindrome() { 
+        final int number = 50;
+
+        final String bits = toBinary(number);
+        final int length = bits.length(); //Should be 8
+
+        for(int i = 0; i < bits.length(); i++) { 
+            if(bits.charAt(length - i - 1) != bits.charAt(i)) {
+                return false;
+            }
+        }
+
+        return false;
+    }
+
     //Tilde flips every bit
     public static int tilde(final int original) { 
         //01010101 becomes 10101010
@@ -106,5 +122,7 @@ public class BitTesting {
 
         //This was essentially my notes on:
         // http://www.cprogramming.com/tutorial/bitwise_operators.html
+
+        System.out.println(isPalindrome());
     }
 }
