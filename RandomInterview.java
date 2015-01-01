@@ -11,9 +11,11 @@ public class RandomInterview {
     //Prints the local min/max from array where n +- 1
     public static void localMinMax() { 
 
-        //Specified array
-        final int[] array = {4, 3, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2};
+        //Specified array. Answers: 4, 2, 5, 3, 4, 5, 4
+        final int[] array = {4, 3, 2, 3, 4, 5, 4, 3, 4, 3, 4, 5, 4};
         System.out.println(Arrays.toString(array));
+
+        int lastMin = Integer.MIN_VALUE, lastMax = Integer.MIN_VALUE;
 
         //Start iterating through the array
         for(int i = 0; i < array.length - 1; i++) { 
@@ -27,7 +29,11 @@ public class RandomInterview {
                         localMin = array[y];
                     }
                     else { 
-                        System.out.println("Local min: " + localMin);
+
+                        if(localMin != lastMin) { 
+                            lastMin = localMin;
+                            System.out.println("Local min: " + localMin);
+                        }
                         y = array.length;
                         break;
                     }
@@ -40,7 +46,11 @@ public class RandomInterview {
                         localMax = array[y];
                     }
                     else { 
-                        System.out.println("Local max: " + localMax);
+                        
+                        if(localMax != lastMax) { 
+                            System.out.println("Local max: " + localMax);
+                            y = array.length;
+                        }
                         y = array.length;
                         break;
                     }
@@ -150,10 +160,10 @@ public class RandomInterview {
     }
 
     public static void main(String[] ryan) { 
-        //localMinMax();
+        localMinMax();
         //infinitelyIntersect();
         //numCombinations();
 
-        sqrt();
+        //sqrt();
     }
 }
