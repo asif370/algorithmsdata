@@ -17,23 +17,19 @@ public class RandomInterview {
         final int[] array = {4, 3, 2, 3, 4, 5, 4, 3, 4, 3, 4, 5, 4};
         System.out.println(Arrays.toString(array));
 
-        int lastMin = Integer.MAX_VALUE;
+        int min = Integer.MAX_VALUE;
 
         for(int i = 0; i < array.length - 1; i++) { 
 
-            int tempMin = array[i];
+            if(array[i] < min) { 
+                min = array[i];
 
-            for(int y = i + 1; y < array.length; y++) { 
-
-                if(tempMin >  array[y]) { 
-                    if(tempMin != lastMin) { 
-                        System.out.println("Local Min: " + tempMin);
-                        lastMin = tempMin;
-                        i = y;
-                    }
-                    y = array.length;
+                if(array[i + 1] > min) { 
+                    System.out.println(min);
+                    min = Integer.MAX_VALUE;
                 }
             }
+
         }
     }
 
