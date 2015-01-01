@@ -15,51 +15,22 @@ public class RandomInterview {
         final int[] array = {4, 3, 2, 3, 4, 5, 4, 3, 4, 3, 4, 5, 4};
         System.out.println(Arrays.toString(array));
 
-        int lastMin = Integer.MIN_VALUE, lastMax = Integer.MIN_VALUE;
+        int lastMin = Integer.MAX_VALUE;
 
-        //Start iterating through the array
         for(int i = 0; i < array.length - 1; i++) { 
 
-            int localMin = array[i];
-            int localMax = array[i];
+            int tempMin = array[i];
 
-            if(localMin > array[i + 1]) { 
-                for(int y = i + 1; y < array.length; y++) { 
-                    if(localMin >= array[y]) { 
-                        localMin = array[y];
-                    }
-                    else { 
+            for(int y = i + 1; y < array.length; y++) { 
 
-                        if(localMin != lastMin) { 
-                            lastMin = localMin;
-                            System.out.println("Local min: " + localMin);
-                        }
-                        y = array.length;
-                        break;
+                if(tempMin > array[y]) { 
+                    if(tempMin != lastMin) { 
+                        System.out.println("Local Min: " + tempMin);
+                        lastMin = tempMin;
                     }
+                    y = array.length;
                 }
             }
-
-            if(localMax <= array[i + 1]) { 
-                for(int y = i + 1; y < array.length; y++) { 
-                    if(localMax <= array[y]) { 
-                        localMax = array[y];
-                    }
-                    else { 
-                        
-                        if(localMax != lastMax) { 
-                            System.out.println("Local max: " + localMax);
-                            y = array.length;
-                        }
-                        y = array.length;
-                        break;
-                    }
-                }
-            }
-            else { 
-                System.out.println("Local Max: " + localMax);
-            }
-        }
     }
 
     //Find if 2 pairs of points, each pair representing a line on a line segment, infinitely intersect
