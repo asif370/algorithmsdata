@@ -11,7 +11,9 @@ public class RandomInterview {
     //Prints the local min/max from array where n +- 1
     public static void localMinMax() { 
 
-        //Specified array. Answers: 4, 2, 5, 3, 4, 5, 4
+        //Specified array. 
+        //Local Maxes: 4, 5, 4, 5
+        //Local Mins: 2, 3, 3, 4
         final int[] array = {4, 3, 2, 3, 4, 5, 4, 3, 4, 3, 4, 5, 4};
         System.out.println(Arrays.toString(array));
 
@@ -23,14 +25,16 @@ public class RandomInterview {
 
             for(int y = i + 1; y < array.length; y++) { 
 
-                if(tempMin > array[y]) { 
+                if(tempMin >  array[y]) { 
                     if(tempMin != lastMin) { 
                         System.out.println("Local Min: " + tempMin);
                         lastMin = tempMin;
+                        i = y;
                     }
                     y = array.length;
                 }
             }
+        }
     }
 
     //Find if 2 pairs of points, each pair representing a line on a line segment, infinitely intersect
