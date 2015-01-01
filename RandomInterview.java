@@ -18,18 +18,39 @@ public class RandomInterview {
         System.out.println(Arrays.toString(array));
 
         int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
 
+        //Iterate through the entire array
         for(int i = 0; i < array.length - 1; i++) { 
 
+            //If this number is smaller than the previous
             if(array[i] < min) { 
                 min = array[i];
 
+                //And the next number is bigger
                 if(array[i + 1] > min) { 
-                    System.out.println(min);
+
+                    //It's a local min
+                    System.out.println("Min: " + min);
                     min = Integer.MAX_VALUE;
+                    i++;
                 }
             }
+        }
 
+        for(int i = 0; i < array.length - 1; i++) { 
+            if(array[i] > max) { 
+                max = array[i];
+
+                if(array[i + 1] < max) { 
+
+                    //Max
+                    System.out.println("Max: " + max);
+                    max = Integer.MIN_VALUE;
+                    i++;
+                }
+
+            }
         }
     }
 
