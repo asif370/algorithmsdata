@@ -17,45 +17,29 @@ public class RandomInterview {
         final int[] array = {4, 3, 2, 3, 4, 5, 4, 3, 4, 3, 4, 5, 4};
         System.out.println(Arrays.toString(array));
 
-        int min = Integer.MAX_VALUE;
-        int max = Integer.MIN_VALUE;
-
-        //Iterate through the entire array
-        for(int i = 0; i < array.length - 1; i++) { 
-
-            //If this number is smaller than the previous
-            if(array[i] < min) { 
-                min = array[i];
-
-                //And the next number is bigger
-                if(array[i + 1] > min) { 
-
-                    //It's a local min
-                    System.out.print("Min: " + min + "\t");
-                    min = Integer.MAX_VALUE;
-                    i++;
-                }
+        int prevDiff = array[0] - array[1];
+        int i=1;
+        while(i<array.length-1){    
+            int currDiff = 0;
+            int zeroCount = 0;
+            while(currDiff == 0 && i<array.length-1){
+                zeroCount++;
+                i++;
+                currDiff = array[i-1] - array[i];
             }
-        }
 
-        System.out.println();
-
-        for(int i = 0; i < array.length - 1; i++) { 
-            if(array[i] > max) { 
-                max = array[i];
-
-                if(array[i + 1] < max) { 
-
-                    //Max
-                    System.out.print("Max: " + max + "\t");
-                    max = Integer.MIN_VALUE;
-                    i++;
-                }
-
+            int signCurrDiff = Integer.signum(currDiff);
+            int signPrevDiff = Integer.signum(prevDiff);
+            if( signPrevDiff != signCurrDiff && signCurrDiff != 0){ //signSubDiff==0, the case when prev while ended bcoz of last elem
+                int index = i-1-(zeroCount)/2;
+                if(signPrevDiff == 1){
+                    System.out.println(index + "\t" + array[index] + "\tMin");
+                }else{
+                    System.out.println(index + "\t" + array[index] + "\tMax");
+                }               
             }
+            prevDiff = currDiff;
         }
-
-        System.out.println();
     }
 
     //Find if 2 pairs of points, each pair representing a line on a line segment, infinitely intersect
