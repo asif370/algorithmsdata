@@ -26,7 +26,6 @@ public class RandomInterview {
             //If this number is smaller than the previous
             if(array[i] < min) { 
                 min = array[i];
-                System.out.println("HERE: " + min);
 
                 //And the next number is bigger
                 if(array[i + 1] > min) { 
