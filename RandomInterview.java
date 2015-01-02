@@ -26,17 +26,20 @@ public class RandomInterview {
             //If this number is smaller than the previous
             if(array[i] < min) { 
                 min = array[i];
+                System.out.println("HERE: " + min);
 
                 //And the next number is bigger
                 if(array[i + 1] > min) { 
 
                     //It's a local min
-                    System.out.println("Min: " + min);
+                    System.out.print("Min: " + min + "\t");
                     min = Integer.MAX_VALUE;
                     i++;
                 }
             }
         }
+
+        System.out.println();
 
         for(int i = 0; i < array.length - 1; i++) { 
             if(array[i] > max) { 
@@ -45,13 +48,15 @@ public class RandomInterview {
                 if(array[i + 1] < max) { 
 
                     //Max
-                    System.out.println("Max: " + max);
+                    System.out.print("Max: " + max + "\t");
                     max = Integer.MIN_VALUE;
                     i++;
                 }
 
             }
         }
+
+        System.out.println();
     }
 
     //Find if 2 pairs of points, each pair representing a line on a line segment, infinitely intersect
