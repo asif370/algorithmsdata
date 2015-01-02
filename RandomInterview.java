@@ -17,28 +17,32 @@ public class RandomInterview {
         final int[] array = {4, 3, 2, 3, 4, 5, 4, 3, 4, 3, 4, 5, 4};
         System.out.println(Arrays.toString(array));
 
-        int prevDiff = array[0] - array[1];
-        int i=1;
-        while(i<array.length-1){    
-            int currDiff = 0;
-            int zeroCount = 0;
-            while(currDiff == 0 && i<array.length-1){
-                zeroCount++;
-                i++;
-                currDiff = array[i-1] - array[i];
+        int previous = Integer.MIN_VALUE;
+
+        for(int i = 0; i < array.length; i++) { 
+            final int current = array[i];
+
+            if(i == array.length - 1) { 
+                if(previous > current) { 
+                    System.out.println("Minimum: " + array[i]);
+                }
+                else if(previous < current) {
+                    System.out.println("Maximum: " + array[i]);
+                }
             }
 
-            int signCurrDiff = Integer.signum(currDiff);
-            int signPrevDiff = Integer.signum(prevDiff);
-            if( signPrevDiff != signCurrDiff && signCurrDiff != 0){ //signSubDiff==0, the case when prev while ended bcoz of last elem
-                int index = i-1-(zeroCount)/2;
-                if(signPrevDiff == 1){
-                    System.out.println(index + "\t" + array[index] + "\tMin");
-                }else{
-                    System.out.println(index + "\t" + array[index] + "\tMax");
-                }               
+            else { 
+                final int next = array[i + 1];
+
+                if(current < next && current < previous) {
+                    System.out.println("Minimum: " + current);
+                }
+                else if(current > next && current > previous) { 
+                    System.out.println("Maximum: " + current);
+                }
             }
-            prevDiff = currDiff;
+
+            previous = current;
         }
     }
 
