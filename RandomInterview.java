@@ -17,26 +17,41 @@ public class RandomInterview {
         final int[] array = {4, 3, 2, 3, 4, 5, 4, 3, 4, 3, 4, 5, 4};
         System.out.println(Arrays.toString(array));
 
+        //For holding the previous value. Initialize to smallest possible
         int previous = Integer.MIN_VALUE;
 
+        //Iterate through all elements
         for(int i = 0; i < array.length; i++) { 
+
+            //A temporary place holder
             final int current = array[i];
 
+            //If we're at the last element
             if(i == array.length - 1) { 
+
+                //And we're smaller than it
                 if(previous > current) { 
                     System.out.println("Minimum: " + array[i]);
                 }
+
+                //Or greater than it
                 else if(previous < current) {
                     System.out.println("Maximum: " + array[i]);
                 }
             }
 
+            //Everything up to the last number
             else { 
+
+                //Another temporary variable
                 final int next = array[i + 1];
 
+                //If we're still smaller
                 if(current < next && current < previous) {
                     System.out.println("Minimum: " + current);
                 }
+
+                //If we're greater
                 else if(current > next && current > previous) { 
                     System.out.println("Maximum: " + current);
                 }
