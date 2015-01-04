@@ -93,6 +93,7 @@ public class RandomInterview {
         return true;
     }
 
+    //Prints the missing numbers from 1 - N in an array
     public static void printMissing() {
 
         //Input
@@ -113,15 +114,16 @@ public class RandomInterview {
             values.set(i, true);
         }
 
+        //Essentially, iterate through all the 'false' bits
         for(int i = input.length; i >= 0; i--) {
             i = values.previousClearBit(i);
 
+            //The last value is -1, and we never want to print that
             if(i >= 0) {
                 System.out.println(i);
             }
         }
     }
-
 
     //Find if 2 pairs of points, each pair representing a line on a line segment, infinitely intersect
     public static void infinitelyIntersect() { 
