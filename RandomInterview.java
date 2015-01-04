@@ -131,20 +131,32 @@ public class RandomInterview {
         //Input
         final int[] input = new int[10];
 
-        //Fill 
+        //Fill from 1 - length
         for(int i = 0; i < input.length; i++) { 
-            input[i] = i;
+            input[i] = i + 1;
         }
 
-        //Change a single number to be different
-        input[2] = input[4];
+        //Make a single number go missing
+        input[2] = 0;
 
         System.out.println("\nNew Array: " + Arrays.toString(input));
 
-        //XOR all values assuming none are missing
+        //Way #1: Calculate what the sum should be: sum = n * (n + 1) / 2
+        final int totalSum = (input.length * (input.length + 1)) / 2;
+
+        //Calculate the array's sum
+        int arraySum = 0;
+        for(int i : input) { 
+            arraySum += i;
+        }
+
+        //Missing number is the difference
+        System.out.println("Missing: " + (totalSum - arraySum));
+
+        //Way #2: XOR all the values from 1 - N
         int xorCorrect = 0;
         for(int i = 1; i <= input.length; i++) { 
-            xorCorrect = xorCorrect ^ i;
+            xorCorrect ^= i;
         }
 
         //XOR all values of the array
@@ -156,8 +168,6 @@ public class RandomInterview {
         //Missing is result of XORing the two
         System.out.println("Missing: " + (xorCorrect ^ xorArray));
     }
-
-
 
     //Find if 2 pairs of points, each pair representing a line on a line segment, infinitely intersect
     public static void infinitelyIntersect() { 
