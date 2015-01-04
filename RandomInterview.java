@@ -1,6 +1,8 @@
 import java.util.Arrays;
+import java.util.BitSet;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Random;
 
 /** 
  * Written by Ryan D'souza
@@ -88,6 +90,14 @@ public class RandomInterview {
 
         return true;
     }
+
+    public static void printMissing() {
+
+        //Input
+        final int[] input = new int[100];
+
+        for(int i = 0; i < input.length; i++) { 
+
 
     //Find if 2 pairs of points, each pair representing a line on a line segment, infinitely intersect
     public static void infinitelyIntersect() { 
