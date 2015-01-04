@@ -113,22 +113,14 @@ public class RandomInterview {
             values.set(i, true);
         }
 
-        int missing = input.length - 1;
-        int previous = 0;
+        for(int i = input.length; i >= 0; i--) {
+            i = values.previousClearBit(i);
 
-        while(true) {
-            previous = missing;
-            missing = values.previousClearBit(missing);
-
-            System.out.println(missing);
-            if(previous == missing) { 
-                break;
+            if(i >= 0) {
+                System.out.println(i);
             }
-
-
         }
     }
-
 
 
     //Find if 2 pairs of points, each pair representing a line on a line segment, infinitely intersect
