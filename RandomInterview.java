@@ -143,7 +143,7 @@ public class RandomInterview {
 
         //XOR all values assuming none are missing
         int xorCorrect = 0;
-        for(int i = 0; i < input.length; i++) { 
+        for(int i = 1; i <= input.length; i++) { 
             xorCorrect = xorCorrect ^ i;
         }
 
