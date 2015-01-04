@@ -277,6 +277,6 @@ public class RandomInterview {
         //sqrt();
 
         //printMissing();
-        printSingleMissing();
+        //printSingleMissing();
     }
 }
