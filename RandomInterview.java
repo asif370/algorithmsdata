@@ -61,6 +61,10 @@ public class RandomInterview {
         }
     }
 
+    public static boolean containsDuplicates() { 
+
+    }
+
     //Find if 2 pairs of points, each pair representing a line on a line segment, infinitely intersect
     public static void infinitelyIntersect() { 
 
