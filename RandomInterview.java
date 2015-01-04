@@ -63,6 +63,30 @@ public class RandomInterview {
 
     public static boolean containsDuplicates() { 
 
+        //Input
+        final String word = "abcdefghijklmnopqrstuvqxyzabc";
+
+        //Represent each ASCII Char
+        final boolean[] containsLetters = new boolean[128];
+
+        //We only care about first ASCII chars, so if the string is longer, cut it off
+        final String matters = word.length() > containsLetters.length ? word.substring(containsLetters.length) : word;
+
+        //Go through all letters
+        for(Character c : matters.toCharArray()) { 
+            
+            //If it's already there, return false;
+            if(containsLetters[(int)c]) { 
+                return false;
+            }
+            
+            //Else, add it
+            else { 
+                containsLetters[(int)c] = true;
+            }
+        }
+
+        return true;
     }
 
     //Find if 2 pairs of points, each pair representing a line on a line segment, infinitely intersect
