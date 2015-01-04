@@ -125,6 +125,40 @@ public class RandomInterview {
         }
     }
 
+    //Print single missing number from 1-N in an array
+    public static void printSingleMissing() { 
+
+        //Input
+        final int[] input = new int[10];
+
+        //Fill 
+        for(int i = 0; i < input.length; i++) { 
+            input[i] = i;
+        }
+
+        //Change a single number to be different
+        input[2] = input[4];
+
+        System.out.println("\nNew Array: " + Arrays.toString(input));
+
+        //XOR all values assuming none are missing
+        int xorCorrect = 0;
+        for(int i = 0; i < input.length; i++) { 
+            xorCorrect = xorCorrect ^ i;
+        }
+
+        //XOR all values of the array
+        int xorArray = 0;
+        for(int i = 0; i < input.length; i++) { 
+            xorArray = xorArray ^ input[i];
+        }
+
+        //Missing is result of XORing the two
+        System.out.println("Missing: " + (xorCorrect ^ xorArray));
+    }
+
+
+
     //Find if 2 pairs of points, each pair representing a line on a line segment, infinitely intersect
     public static void infinitelyIntersect() { 
 
@@ -229,6 +263,7 @@ public class RandomInterview {
 
         //sqrt();
 
-        printMissing();
+        //printMissing();
+        printSingleMissing();
     }
 }
