@@ -10,6 +10,8 @@ import java.util.Random;
 
 public class RandomInterview { 
 
+    public static final Random gen = new Random();
+
     //Prints the local min/max from array where n +- 1
     public static void localMinMax() { 
 
@@ -94,9 +96,39 @@ public class RandomInterview {
     public static void printMissing() {
 
         //Input
-        final int[] input = new int[100];
+        final int[] input = new int[10];
 
+        //Fill with random numbers
         for(int i = 0; i < input.length; i++) { 
+            input[i] = gen.nextInt(input.length);
+        }
+
+        System.out.println(Arrays.toString(input));
+
+        //Like a boolean array but smaller
+        final BitSet values = new BitSet(input.length);
+
+        //Initialize those elements to true
+        for(int i : input) { 
+            values.set(i, true);
+        }
+
+        int missing = input.length - 1;
+        int previous = 0;
+
+        while(true) {
+            previous = missing;
+            missing = values.previousClearBit(missing);
+
+            System.out.println(missing);
+            if(previous == missing) { 
+                break;
+            }
+
+
+        }
+    }
+
 
 
     //Find if 2 pairs of points, each pair representing a line on a line segment, infinitely intersect
@@ -197,10 +229,12 @@ public class RandomInterview {
     }
 
     public static void main(String[] ryan) { 
-        localMinMax();
+        //localMinMax();
         //infinitelyIntersect();
         //numCombinations();
 
         //sqrt();
+
+        printMissing();
     }
 }
