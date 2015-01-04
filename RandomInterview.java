@@ -269,6 +269,21 @@ public class RandomInterview {
         System.out.println("\tSQRT: " + number + " is: " + result);
     }
 
+    //Swap two variables
+    public static void swap() { 
+        int A = gen.nextInt(100);
+        int B = gen.nextInt(100);
+
+        System.out.println("A: " + A + "\tB: " + B);
+
+        B ^= A;
+        A ^= B;
+        B ^= A;
+
+        System.out.println("After Swap:\tA: " + A + "\tB: " + B);
+    }
+        
+
     public static void main(String[] ryan) { 
         //localMinMax();
         //infinitelyIntersect();
@@ -278,5 +293,6 @@ public class RandomInterview {
 
         //printMissing();
         //printSingleMissing();
+        swap();
     }
 }
