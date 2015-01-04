@@ -125,7 +125,7 @@ public class RandomInterview {
         }
     }
 
-    //Print single missing number from 1-N in an array
+    //Print the single missing number from 1-N in an array
     public static void printSingleMissing() { 
 
         //Input
@@ -167,6 +167,9 @@ public class RandomInterview {
 
         //Missing is result of XORing the two
         System.out.println("Missing: " + (xorCorrect ^ xorArray));
+
+        //Note: The above XOR solution could be optimized to only 1 for-loop
+        //But for demonstration purposes and readability, it has been kept as 2 separate loops
     }
 
     //Find if 2 pairs of points, each pair representing a line on a line segment, infinitely intersect
