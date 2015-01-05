@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.Random;
+import java.util.HashMap;
 
 /** 
  * Written by Ryan D'souza
@@ -13,12 +14,11 @@ public class RunningTimeHistogram {
     public static final Random generator = new Random();
 
     private final long N, T;
-    private final long[] times;
+    private final HashMap<Long, Integer> runningTimeCounter = new HashMap<Long, Integer>();
 
     public RunningTimeHistogram(final long N, final long numTrials) { 
         this.N = N;
         this.T = numTrials;
-        this.times = new long[numTrials];
 
         beginTesting();
     }
@@ -26,72 +26,75 @@ public class RunningTimeHistogram {
     private void beginTesting() { 
 
         //For each trial
-        for(int i = 0; i < times.length; i++) { 
+        for(long i = 0; i < T; i++) { 
 
             //Generate a random array
             final double[] randomArray = randomArray(N);
 
             final long startTime = System.currentTimeMillis();
-            sort(randomArray);
+            quicksort(randomArray);
 
-            //Save the time 
-            times[i] = (int) (System.currentTimeMillis() - startTime);
+            //Quick-sort time
+            final long runningTime = System.currentTimeMillis() - startTime;
+
+            //Get the number of instances that time occured
+            final Integer occur = runningTimeCounter.get(runningTime);
+
+            //If it never happened before, add it
+            if(occur == null || occur == 0) { 
+                runningTimeCounter.put(runningTime, 1);
+            }
+
+            //Otherwise, just increment it
+            else { 
+                runningTimeCounter.put(runningTime, occur + 1);
+            }
+        }
+
+        //Print values
+        for(Long l : runningTimeCounter.keySet()) { 
+            System.out.println(l + "\t" + runningTimeCounter.get(l));
         }
     }
 
-
-    private double[] numbers;
-
-    public void sort(double[] values) {
-        // check for empty or null array
-        if (values ==null || values.length==0){
-            return;
-        }
-        this.numbers = values;
-        number = values.length;
-        quicksort(0, number - 1);
+    public static void quicksort(double[] a) {
+        quicksort(a, 0, a.length - 1);
     }
 
-    private void quicksort(int low, int high) {
-        int i = low, j = high;
-        // Get the pivot element from the middle of the list
-        int pivot = numbers[low + (high-low)/2];
-
-        // Divide into two lists
-        while (i <= j) {
-            // If the current value from the left list is smaller then the pivot
-            // element then get the next element from the left list
-            while (numbers[i] < pivot) {
-                i++;
-            }
-            // If the current value from the right list is larger then the pivot
-            // element then get the next element from the right list
-            while (numbers[j] > pivot) {
-                j--;
-            }
-
-            // If we have found a values in the left list which is larger then
-            // the pivot element and if we have found a value in the right list
-            // which is smaller then the pivot element then we exchange the
-            // values.
-            // As we are done we can increase i and j
-            if (i <= j) {
-                exchange(i, j);
-                i++;
-                j--;
-            }
-        }
-        // Recursion
-        if (low < j)
-            quicksort(low, j);
-        if (i < high)
-            quicksort(i, high);
+    // quicksort a[left] to a[right]
+    public static void quicksort(double[] a, int left, int right) {
+        if (right <= left) return;
+        int i = partition(a, left, right);
+        quicksort(a, left, i-1);
+        quicksort(a, i+1, right);
     }
 
-    private void exchange(int i, int j) {
-        double temp = numbers[i];
-        numbers[i] = numbers[j];
-        numbers[j] = temp;
+    // partition a[left] to a[right], assumes left < right
+    private static int partition(double[] a, int left, int right) {
+        int i = left - 1;
+        int j = right;
+        while (true) {
+            while (less(a[++i], a[right]))      // find item on left to swap
+                ;                               // a[right] acts as sentinel
+            while (less(a[right], a[--j]))      // find item on right to swap
+                if (j == left) break;           // don't go out-of-bounds
+            if (i >= j) break;                  // check if pointers cross
+            exch(a, i, j);                      // swap two elements into place
+        }
+        exch(a, i, right);                      // swap with partition element
+        return i;
+    }
+
+    // is x < y ?
+    private static boolean less(double x, double y) {
+        return (x < y);
+    }
+
+    // exchange a[i] and a[j]
+    private static void exch(double[] a, int i, int j) {
+        double swap = a[i];
+        a[i] = a[j];
+        a[j] = swap;
     }
 
     public static void main(String[] ryan) { 
@@ -102,8 +105,8 @@ public class RunningTimeHistogram {
     }
 
     /** Returns an array of size filled with random double values */
-    public double[] randomArray(final int size) { 
-        final double[] array = new double[size];
+    public double[] randomArray(final long size) { 
+        final double[] array = new double[(int)size];
 
         for(int i = 0; i < array.length; i++) { 
             array[i] = generator.nextDouble() * 100;
