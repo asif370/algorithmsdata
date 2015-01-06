@@ -8,6 +8,11 @@ import java.util.Comparator;
 public class BinarySearchDeluxe { 
     public static <Key> int firstIndexOf(final Key[] array, final Key key, Comparator<Key> comparator) { 
 
+        //Project specification
+        if(array == null || key == null || comparator == null) { 
+            throw new NullPointerException();
+        }
+
         //Do binary search to find first occurrence of key
         int occurrence = binarySearch(array, key, comparator);
 
@@ -26,6 +31,11 @@ public class BinarySearchDeluxe {
     }
 
     public static <Key> int lastIndexOf(final Key[] array, Key key, Comparator<Key> comparator) { 
+
+        //Project specification
+        if(array == null || key == null || comparator == null) { 
+             throw new NullPointerException();
+        }
 
         //Do binary search to find first occurrence of key
         int occurrence = binarySearch(array, key, comparator);
