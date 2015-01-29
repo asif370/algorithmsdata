@@ -1,125 +1,129 @@
-public class Particle { 
+import java.awt.Color;
 
-    private double rx, ry;
-    private double vx, vy;
-    private final double radius, mass;
-    private int count;
-    
-    public double getRX() { 
-      return this.rx;
-    }
-    public double getRY() { 
-      return this.ry;
-    }
+/** 
+	Written by Ryan D’souza and Barnabe
+	Represents a Particle 
+*/
 
-    public Particle(double rx, double ry, double vx, double vy, double radius, double mass) { 
-        this.rx = rx;
-        this.ry = ry;
+public class Particle {
+    private static final double INFINITY = Double.POSITIVE_INFINITY;
+
+    private double rx, ry;    // position
+    private double vx, vy;    // velocity
+    private double radius;    // radius
+    private double mass;      // mass
+    private Color color;      // color
+    private int count;        // number of collisions so far
+
+
+    // create a new particle with given parameters        
+    public Particle(double rx, double ry, double vx, double vy, double radius, double mass, Color color) {
         this.vx = vx;
         this.vy = vy;
+        this.rx = rx;
+        this.ry = ry;
         this.radius = radius;
-        this.mass = mass;
-        this.count = 0;
+        this.mass   = mass;
+        this.color  = color;
+    }
+         
+    // create a random particle in the unit box (overlaps not checked)
+    public Particle() {
+        rx     = Math.random();
+        ry     = Math.random();
+        vx     = 0.01 * (Math.random() - 0.5);
+        vy     = 0.01 * (Math.random() - 0.5);
+        radius = 0.01;
+        mass   = 0.5;
+        color  = Color.BLACK;
     }
 
-    public void draw() { 
+    // updates position
+    public void move(double dt) {
+        rx += vx * dt;
+        ry += vy * dt;
+    }
+
+    // draw the particle
+    public void draw() {
+        StdDraw.setPenColor(color);
         StdDraw.filledCircle(rx, ry, radius);
     }
 
-    public int getCount() { 
-        return this.count;
-    }
-
-    public void move(double dt) { 
-
-        if((rx + vx * dt < radius) || (rx + vx * dt > 1.0 - radius)){
-            vx = -vx;
-        }
-
-        if((ry + vy * dt < radius) || (ry + vy * dt > 1.0 - radius)){
-            vy = -vy;
-        }
+    // return the number of collisions involving this particle
+    public int count() { return count; }
         
-        rx = rx + vx * dt;
-        ry = ry + vy * dt;
-    }
-    
-    public double timeToHit(Particle that){
-      
-      if(this == that) {
-        return Double.MAX_VALUE;
-      }
-      
-      double dx = that.rx - this.rx;
-      double dy = that.ry - this.ry;
-      double dvx = that.vx - this.vx;
-      double dvy = that.vy - this.vy;
-      double dvdr = dx * dvx + dy * dvy;
-      
-      if(dvdr > 0) {
-        return Double.MAX_VALUE;
-      }
-      
-      double dvdv = dvx * dvx + dvy * dvy;
-      double drdr = dx * dx + dy * dy;
-      double s = this.radius + that.radius;
-      double d = (dvdr * dvdr) - dvdv * (drdr - s*s);
-      
-      if(d < 0) {
-        return Double.MAX_VALUE;
-      }
-      
-      double temp = -(dvdr + Math.sqrt(d)) / dvdv;
-      System.out.println(temp);
-      
-      if(temp < 0.05) { 
-        System.out.println("IMPACT IMMINENT");
-      }
-      
-      return -(dvdr + Math.sqrt(d)) / dvdv;
-    }
-    
-    public double timeToHitVerticalWall() { 
-      return (1 - radius - rx) / vx;
-    }
-    
-    public double timeToHitHorizontalWall() { 
-        return (1 - radius - ry) / vy;
+  
+    // how long into future until collision between this particle a and b?
+    public double timeToHit(Particle b) {
+        Particle a = this;
+        if (a == b) return INFINITY;
+        double dx  = b.rx - a.rx;
+        double dy  = b.ry - a.ry;
+        double dvx = b.vx - a.vx;
+        double dvy = b.vy - a.vy;
+        double dvdr = dx*dvx + dy*dvy;
+        if (dvdr > 0) return INFINITY;
+        double dvdv = dvx*dvx + dvy*dvy;
+        double drdr = dx*dx + dy*dy;
+        double sigma = a.radius + b.radius;
+        double d = (dvdr*dvdr) - dvdv * (drdr - sigma*sigma);
+        // if (drdr < sigma*sigma) StdOut.println("overlapping particles");
+        if (d < 0) return INFINITY;
+        return -(dvdr + Math.sqrt(d)) / dvdv;
     }
 
-    public void bounceOff(Particle that){
+    // how long into future until this particle collides with a vertical wall?
+    public double timeToHitVerticalWall() {
+        if      (vx > 0) return (1.0 - rx - radius) / vx;
+        else if (vx < 0) return (radius - rx) / vx;  
+        else             return INFINITY;
+    }
 
-        double dx = that.rx - this.rx;
-        double dy = that.ry - this.ry;
-        
+    // how long into future until this particle collides with a horizontal wall?
+    public double timeToHitHorizontalWall() {
+        if      (vy > 0) return (1.0 - ry - radius) / vy;
+        else if (vy < 0) return (radius - ry) / vy;
+        else             return INFINITY;
+    }
+
+    // update velocities upon collision between this particle and that particle
+    public void bounceOff(Particle that) {
+        double dx  = that.rx - this.rx;
+        double dy  = that.ry - this.ry;
         double dvx = that.vx - this.vx;
         double dvy = that.vy - this.vy;
-        
-        double dvdr = dx * dvx + dy * dvy;
-        double s = this.radius + that.radius;
-        
-        double J = 2 * this.mass * that.mass * dvdr / (s * (this.mass + that.mass));
-        double Jx = J * dx / s;
-        double Jy = J * dy / s;
-        
-        this.vx += Jx / this.mass;
-        this.vy += Jy / this.mass;
-        this.vx -= Jx / that.mass;
-        this.vy -= Jy / that.mass;
-        
+        double dvdr = dx*dvx + dy*dvy;             // dv dot dr
+        double dist = this.radius + that.radius;   // distance between particle centers at collison
+
+        // normal force F, and in x and y directions
+        double F = 2 * this.mass * that.mass * dvdr / ((this.mass + that.mass) * dist);
+        double fx = F * dx / dist;
+        double fy = F * dy / dist;
+
+        // update velocities according to normal force
+        this.vx += fx / this.mass;
+        this.vy += fy / this.mass;
+        that.vx -= fx / that.mass;
+        that.vy -= fy / that.mass;
+
+        // update collision counts
         this.count++;
         that.count++;
     }
 
-    public void bounceOffVerticalWall() { 
-      vx = -vx;
-      rx = 1 - radius;
-      ry = ry + vy * timeToHitVerticalWall();
+    // update velocity of this particle upon collision with a vertical wall
+    public void bounceOffVerticalWall() {
+        vx = -vx;
+        count++;
     }
 
-    public void bounceOffHorizontalWall() { 
-      vy = -vy;
-      ry = 1 - radius;
-      rx = rx + vx * timeToHitHorizontalWall();
+    // update velocity of this particle upon collision with a horizontal wall
+    public void bounceOffHorizontalWall() {
+        vy = -vy;
+        count++;
     }
+
+    // return kinetic energy associated with this particle
+    public double kineticEnergy() { return 0.5 * mass * (vx*vx + vy*vy); }
 }

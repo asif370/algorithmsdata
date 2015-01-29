@@ -1,27 +1,46 @@
 import java.util.Random;
 
+/** 
+	Written by Ryan D’souza and Barnabe
+	The main class for the Collision System
+
+	Run Instructions:
+	1. Download all .java files
+	2. From terminal, run: javac *.java
+	3. Run: java CollisionSystem 50
+		50 = number of particles
+
+	Output: 
+		GUI of Collision System */
+
+
 public class CollisionSystem { 
   
   private MinPQ<Event> pq = new MinPQ<Event>();
   private double t = 0.0;
   private Particle[] particles;
   private static final double RADIUS = 0.005;
-  
+
+  //Constructor with given set of particles
   public CollisionSystem(Particle[] particles) { 
     this.particles = particles;
   }
   
+  //Constructor with known set of particles that makes a bunch of random particles
   public CollisionSystem(final int N) { 
     this.particles = new Particle[N];
     
+    //A stationary object ie. the sun
     particles[0] = new Particle(Math.random(), Math.random(), 0.0, 0.0, RADIUS * 4, Math.random());
     
+    //The other random particles
     for(int i = 1; i < particles.length; i++) { 
       particles[i] = new Particle(Math.random(), Math.random(), 0.01 * (Math.random() - 0.05), 0.01 * (Math.random() - 0.05), RADIUS, Math.random());
       particles[i].draw();
     }
   }
-  
+   
+  //Predicts if there will be a collision
   private void predict(Particle a){
     
     if(a == null) return;
@@ -44,6 +63,7 @@ public class CollisionSystem {
     }
   }
   
+  //Does the simulation
   public void simulate(){
     
     pq = new MinPQ<Event>();
