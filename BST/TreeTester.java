@@ -1,27 +1,29 @@
-/**
-   This program tests the binary search tree class.
-*/
-public class TreeTester
-{ 
-   public static void main(String[] args)
-   {  
-      BinarySearchTree t = new BinarySearchTree();
-      t.add("D");
-      t.add("B");
-      t.add("A");
-      t.add("C");
-      t.add("F");
-      t.add("E");
-      t.add("I");
-      t.add("G");
-      t.add("H");
-      t.add("J");
-      t.remove("A"); // Removing leaf
-      t.remove("B"); // Removing element with one child
-      t.remove("F"); // Removing element with two children
-      t.remove("D"); // Removing root
-      t.print();
-      System.out.println("Expected: C E G H I J");
+import java.util.Scanner;
+
+/** 
+ * Written by Ryan D'souza
+ * Reads text from System.in, breaks it into individual words, adds it to tree
+ * Prints all words and the size. Useful for determining number of unique words a textfile has */
+public class TreeTester { 
+
+   public static void main(String[] args) {  
+      final BinarySearchTree wordTree = new BinarySearchTree();
+
+      final Scanner scanner = new Scanner(System.in);
+
+      System.out.println("Enter words to see frequencies");
+
+      String input = "";
+      while((input = scanner.nextLine()) != null && input.length() != 0) {
+          final String[] words = input.split(" ");
+
+          for(String word : words) { 
+              wordTree.add(word);
+          }
+      }
+
+      System.out.println("\n\nPrinting Data");
+      wordTree.print();
    }
 }
 
