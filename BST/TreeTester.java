@@ -6,24 +6,36 @@ import java.util.Scanner;
  * Prints all words and the size. Useful for determining number of unique words a textfile has */
 public class TreeTester { 
 
-   public static void main(String[] args) {  
-      final BinarySearchTree wordTree = new BinarySearchTree();
+    public static void main(String[] args) {  
+        final BinarySearchTree wordTree = new BinarySearchTree();
 
-      final Scanner scanner = new Scanner(System.in);
+        final Scanner scanner = new Scanner(System.in);
 
-      System.out.println("Enter words to see frequencies");
+        if(args.length > 1) { 
+            for(String word : args) { 
+                wordTree.add(word);
+                System.out.println(word);
+            }
+        }
 
-      String input = "";
-      while((input = scanner.nextLine()) != null && input.length() != 0) {
-          final String[] words = input.split(" ");
+        else {
 
-          for(String word : words) { 
-              wordTree.add(word);
-          }
-      }
+            System.out.println("Enter words to see frequencies");
 
-      System.out.println("\n\nPrinting Data");
-      wordTree.print();
-   }
+            String input = "";
+            while((input = scanner.nextLine()) != null && input.length() != 0) {
+                final String[] words = input.split(" ");
+
+                for(String word : words) { 
+                    wordTree.add(word);
+                }
+            }
+        }
+
+        System.out.println("\nPrinting Data");
+        wordTree.print();
+
+        System.out.println("\n# of unique words: " + wordTree.getSize());
+    }
 }
 
