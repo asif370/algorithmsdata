@@ -17,7 +17,7 @@ public class AirBnBSolution {
     public static void main(String[] args) {
         String firstPerson = "John,Smith,john.smith@gmail.com,Los Angeles,1";
         String secondPerson = "Jane,Roberts,janer@msn.com,\"San Francisco, CA\",\"2, 3\"";
-        String thirdPerson = "Alexandra \"\"Alex\"\"\",Menendez,alex.menendez@gmail.com\"\"dsouzarc@gmail.com\"\"\",Miami,4";
+        String thirdPerson = "Alexandra \"\"Alex\"\"\",Menendez,alex.menendez@gmail.comdsouzarc@gmail.com,Miami,4";
 
         System.out.println(parseData(firstPerson));
         System.out.println(parseData(secondPerson));
