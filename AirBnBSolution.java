@@ -30,57 +30,6 @@ public class AirBnBSolution {
         if(input.contains("\"")) {
             result.append("List<");
         }
-
-        int last = -1;
-        boolean isOpenParenthesis = false;
-        boolean isOpenDouble = false;
-        String temp = "";
-        for(int i = 0; i < input.length(); i++) {
-
-            boolean hasAdded = false;
-
-            if(isOpenDouble && i + 3 < input.length() && input.substring(i, i + 3).equals("\"\"\"")) {
-                isOpenDouble = false;
-                result.append(temp);
-                temp = "";
-                last = i + 1;
-                hasAdded = true;
-            }
-            else if(!isOpenDouble && i + 2 < input.length() && input.substring(i, i + 2).equals("\"\"")) {
-                isOpenDouble = true;
-                i++;
-            }
-
-            if(isOpenDouble) {
-                temp += input.charAt(i);
-                hasAdded = true;
-            }
-
-            else if(!isOpenDouble && !isOpenParenthesis && input.charAt(i) == '\"') {
-                isOpenParenthesis = true;
-            }
-            else if(!isOpenDouble && isOpenParenthesis && input.charAt(i) == '\"') {
-                isOpenParenthesis = false;
-                result.append(temp);
-                last = i;
-                temp = "";
-                hasAdded = true;
-            }
-            else if(isOpenParenthesis) {
-                temp += input.charAt(i);
-                hasAdded = true;
-            }
-
-            else if(!hasAdded && input.charAt(i) == ',' && !isOpenParenthesis && !isOpenDouble) {
-                result.append(input.substring(last + 1, i) + "|");
-                last = i;
-                hasAdded = true;
-            }
-            else if(!hasAdded && !isOpenParenthesis && !isOpenDouble && input.contains("\"\"\"")) {
-                result.append(input.charAt(i));
-            }
-        }
-
         result.append(input.substring(last + 1));
 
         if(input.contains("\"")) {
