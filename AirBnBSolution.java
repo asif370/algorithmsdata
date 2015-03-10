@@ -1,7 +1,12 @@
-import java.io.*;
-import java.util.*;
+import java.util.LinkedList;
 
-/*
+/* Written by Ryan D'souza
+AirBnB Coding Interview
+
+Run Instructions:
+    1. javac AirBnBSolution.java
+    2. java AirBnBSolution
+
 # Test Input:
 # John,Smith,john.smith@gmail.com,Los Angeles,1
 # Jane,Roberts,janer@msn.com,"San Francisco, CA","2, 3"
@@ -14,27 +19,43 @@ import java.util.*;
  */
 
 public class AirBnBSolution {
+
+    /** For testing */
     public static void main(String[] args) {
-        String firstPerson = "John,Smith,john.smith@gmail.com,Los Angeles,1";
-        String secondPerson = "Jane,Roberts,janer@msn.com,\"San Francisco, CA\",\"2, 3\"";
-        String thirdPerson = "Alexandra \"\"Alex\"\"\",Menendez,alex.menendez@gmail.com,Miami,4";
 
-        System.out.println(parseData(firstPerson));
-        System.out.println(parseData(secondPerson));
-        System.out.println(parseData(thirdPerson));
+        //Given input
+        final String firstPerson = "John,Smith,john.smith@gmail.com,Los Angeles,1";
+        final String secondPerson = "Jane,Roberts,janer@msn.com,\"San Francisco, CA\",\"2, 3\"";
+        final String thirdPerson = "Alexandra \"\"Alex\"\"\",Menendez,alex.menendez@gmail.com,Miami,4";
+
+        final LinkedList<String> data = new LinkedList<String>();
+        data.add(firstPerson);
+        data.add(secondPerson);
+        data.add(thirdPerson);
+
+        for(String person : data) {
+            System.out.println(parseData(person));
+            }
     }
-
+    
+    /** Returns data in a parsed format */
     public static String parseData(final String input) {
+
+        //For holding the results (most efficient data structure for string addition)
         final StringBuilder result = new StringBuilder("");
 
+        //Default format
         if(input.contains("\"")) {
             result.append("List<");
         }
 
-        boolean openQuotes = false;
-
+        //Go through all the letters
         for(int i = 0; i < input.length(); i++) {
-            if(!openQuotes && i + 2 < input.length() && input.substring(i, i + 2).equals("\"\"")) {
+
+            //Double quotes (thirdPerson example)
+            if(i + 2 < input.length() && input.substring(i, i + 2).equals("\"\"")) {
+
+                //Go until we reach the end of the double quotes (indicated by triple quote)
                 for(int y = i + 1; y < input.length() - 3; y++) {
                     if(input.substring(y, y + 3).equals("\"\"\"")) {
                         result.append(input.charAt(y));
@@ -53,7 +74,7 @@ public class AirBnBSolution {
                     }
                 }
             }
-            if(!openQuotes && input.charAt(i) == '\"') {
+            if(input.charAt(i) == '\"') {
                 for(int y = i + 1; y < input.length(); y++) {
                     if(input.charAt(y) == '\"') {
                         openQuotes = true;
@@ -67,7 +88,7 @@ public class AirBnBSolution {
                 result.append("|");
             }
 
-            else if(!openQuotes && input.charAt(i) == ',') {
+            else if(input.charAt(i) == ',') {
                 result.append("|");
             }
             else {
