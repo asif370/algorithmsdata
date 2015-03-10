@@ -74,7 +74,6 @@ public class AirBnBSolution {
             else if(!hasAdded && input.charAt(i) == ',' && !isOpenParenthesis && !isOpenDouble) {
                 result.append(input.substring(last + 1, i) + "|");
                 last = i;
-                System.out.println("Here: " + i + "\t" + input.length());
                 hasAdded = true;
             }
             else if(!hasAdded && !isOpenParenthesis && !isOpenDouble && input.contains("\"\"\"")) {
