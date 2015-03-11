@@ -1,11 +1,11 @@
 import java.util.LinkedList;
 
 /* Written by Ryan D'souza
-AirBnB Coding Interview
+   AirBnB Coding Interview
 
-Run Instructions:
-    1. javac AirBnBSolution.java
-    2. java AirBnBSolution
+   Run Instructions:
+   1. javac AirBnBSolution.java
+   2. java AirBnBSolution
 
 # Test Input:
 # John,Smith,john.smith@gmail.com,Los Angeles,1
@@ -35,9 +35,9 @@ public class AirBnBSolution {
 
         for(String person : data) {
             System.out.println(parseData(person));
-            }
+        }
     }
-    
+
     /** Returns data in a parsed format */
     public static String parseData(final String input) {
 
@@ -67,7 +67,7 @@ public class AirBnBSolution {
 
                     //Add the letters in between
                     else {
-                            result.append(input.charAt(y));
+                        result.append(input.charAt(y));
                     }
                 }
             }
