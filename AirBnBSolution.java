@@ -57,41 +57,47 @@ public class AirBnBSolution {
 
                 //Go until we reach the end of the double quotes (indicated by triple quote)
                 for(int y = i + 1; y < input.length() - 3; y++) {
+
+                    //When we reach the triple quote, end this for-loop and update i to skip over this part
                     if(input.substring(y, y + 3).equals("\"\"\"")) {
                         result.append(input.charAt(y));
-                        openQuotes = false;
                         i = y + 3;
                         y = input.length();
                     }
 
+                    //Add the letters in between
                     else {
-                        if(input.charAt(y) == ',') {
-                            result.append("|");
-                        }
-                        else {
                             result.append(input.charAt(y));
-                        }
                     }
                 }
             }
+
+            //Single quotes (secondPerson example)
             if(input.charAt(i) == '\"') {
+
+                //Go until we reach the end (indicated by single quote)
                 for(int y = i + 1; y < input.length(); y++) {
+
+                    //The end --> increment i to skip over this part
                     if(input.charAt(y) == '\"') {
-                        openQuotes = true;
-                        i = y + 1;
+                        i = y;
                         y = input.length();
                     }
+
+                    //Add everything else
                     else {
                         result.append(input.charAt(y));
                     }
                 }
-                result.append("|");
             }
 
+            //For all commas not inside quotations, add '|'
             else if(input.charAt(i) == ',') {
                 result.append("|");
             }
             else {
+
+                //For the most basic strings (firstPerson example)
                 if(input.charAt(i) != '\"') {
                     result.append(input.charAt(i));
                 }
@@ -99,6 +105,7 @@ public class AirBnBSolution {
 
         }
 
+        //More required formatting
         if(input.contains("\"")) {
             result.append('>');
         }
