@@ -1,7 +1,18 @@
-import javax.swing.*;
-import java.io.*;
-import java.awt.*;
-import java.util.*;
+import java.awt.GridLayout;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Random;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class TypeRecorder extends JFrame {
 
@@ -15,6 +26,9 @@ public class TypeRecorder extends JFrame {
 
     private int lastSpace = 0; //temp value
     private String textString = "";
+    
+    private static final int MIN_LETTERS = 3;
+    private static int MAX_LETTERS = 15;
 
     public TypeRecorder() {
 
@@ -23,7 +37,7 @@ public class TypeRecorder extends JFrame {
         setLocation(200, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        this.allWords = getAllWords(3, 9);
+        this.allWords = getAllWords(MIN_LETTERS, MAX_LETTERS);
 
         this.mainPanel = new JPanel();
         this.textLabel = new JLabel("");
@@ -57,8 +71,9 @@ public class TypeRecorder extends JFrame {
 
             try {
 
-                BufferedReader reader = new BufferedReader(new FileReader(fileName));
-                String line;
+            	BufferedReader reader = new BufferedReader(new InputStreamReader(
+            	          TypeRecorder.class.getClassLoader().getResourceAsStream(fileName)));
+            	String line;
 
                 while((line = reader.readLine()) != null) {
                     words.add(line);
@@ -84,6 +99,10 @@ public class TypeRecorder extends JFrame {
         private final JLabel textLabel;
         private final JTextField textField;
         private final JLabel timeLabel;
+        
+        private ArrayList<Long> timeList = new ArrayList<Long>();
+        private ArrayList<String> wordInputList = new ArrayList<String>(); //list of words inputted by user
+        private ArrayList<String> wordList = new ArrayList<String>(); //list of words displayed to user
 
         public TimeTracker(LinkedList<String[]> allWords, JLabel textLabel, JTextField textField, JLabel timeLabel) {
             this.allWords = allWords;
@@ -94,43 +113,56 @@ public class TypeRecorder extends JFrame {
 
         public void run() {
 
+        	//Overall program start time --> Measured in Milliseconds
             long startTime = 0;
+            
+            //Start time for a word
             long wordTime = 0;
-            int letterCounter =  0; //First number of letters in the array
+            
+            //Basically which String[] in allWords --> Number of letters for the word
+            int letterCounter =  0;
 
             String word = null;
             while(true) {
-
-
+            	
+            	//If we need to show a new word
                 if(word == null) {
-                        //Choose a random word from the array of words
+                	
+                        //Choose a random word from the array of words and show it
                         String[] wordsToChooseFrom = allWords.get(letterCounter);
                         word = wordsToChooseFrom[generator.nextInt(wordsToChooseFrom.length)];
-                        this.textLabel.setText(word);
+                        this.textLabel.setText("              " + word);
+                        wordList.add(word);
                 }
 
 
                 //As soon as the first letter is typed, start counting
-                if(this.textField.getText() != null && this.textField.getText().length() == 0) {
+                if(this.textField.getText() != null && this.textField.getText().length() == 1) {
 
                     //If we haven't yet initialized start time, do so
                     if(startTime == 0) {
                         startTime = System.currentTimeMillis();
                     }
-
+                    
+                    //And start the newest word timing
                     if(wordTime == 0) {
                         wordTime = System.currentTimeMillis();
                     }
                 }
-
-                if(this.textField.getText() != null && this.textField.getText().equals(word)) {
+                
+                //Final stage
+                if(this.textField.getText() != null && this.textField.getText().length() == word.length()) {
 
                     long timeForWord = System.currentTimeMillis() - wordTime;
                     System.out.println("WORD:\t" + word + "\tTIME:\t" + timeForWord);
+                    
+                    timeList.add(timeForWord);
+                    wordInputList.add(this.textField.getText());
 
                     wordTime = System.currentTimeMillis();
                     letterCounter++;
 
+                    //Start off at the beginning (MIN_LETTER words)
                     if(letterCounter == allWords.size()) {
                         letterCounter = 0;
                     }
@@ -141,15 +173,70 @@ public class TypeRecorder extends JFrame {
 
                 if(System.currentTimeMillis() - startTime == MAX_TIME) {
                     this.textField.setEditable(false);
-                    this.textLabel.setText("FINISHED PROGRAM");
+                    this.textLabel.setText("FINISHED PROGRAM. Gross WPM: " + wordInputList.size() + "\n Adjusted WPM: " + getAdjustedWPM()); 
+
+                    saveData(wordInputList.size(), getAdjustedWPM());
+                    return;
+                }
+                
+                this.timeLabel.setText("Word time elapsed in MS: " + (System.currentTimeMillis() - wordTime) + ". Game time elapsed in MS: " + (System.currentTimeMillis() - startTime));
+ 
+            }
+
+        }
+        public void saveData(final int WPM, final double adjustedWPM) {
+
+            try {
+                final String fileName = System.getProperty("user.home") + "/Desktop/TypeRecorderStatistics.csv";
+                final File file = new File(fileName);
+
+                boolean fileDidExist = true;
+
+                if(!file.exists()) {
+                    fileDidExist = false;
+                    file.getParentFile().mkdirs();
+                    file.createNewFile();
                 }
 
-                this.timeLabel.setText("Word time elapsed in MS: " + (System.currentTimeMillis() - wordTime) + ". Game time elapsed in MS: " + (System.currentTimeMillis() - startTime));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
 
+                if(!fileDidExist) {
+                	writer.write("Words Per Minute,");
+                    writer.write("Adjusted Words Per Minute,");
+                    writer.write("Gender,");
+                    writer.write("Grade");
+                    writer.write("\n");
+                }
+
+                writer.write(String.valueOf(WPM) + ",");
+                writer.write(String.valueOf(adjustedWPM) + ",");
+                writer.write(JOptionPane.showInputDialog("Gender (either 'M' or 'F'): ") + ",");
+                writer.write(JOptionPane.showInputDialog("Grade: ") + ",");
+                writer.write("\n");
+                writer.close();
+                this.timeLabel.setText("Data successfully saved to file. " + this.timeLabel.getText());
+            }
+            catch(Exception e) {
+                e.printStackTrace();
             }
         }
+        
+        private double getAdjustedWPM(){
+        	
+        	double adjusted = 0;
+        	int errorCount = 0;
+        	
+        	for(int i = 0; i < wordList.size() - 1; i++){ //why -1 i don't know, but it gets pissy if you don't do it like that
+        		
+        		if(!wordList.get(i).equals(wordInputList.get(i))){
+        			errorCount++;
+        		}
+        	}
+        	
+        	adjusted = wordInputList.size() - errorCount;
+        	return adjusted;
+        }
     }
-
 
     public static void main(String[] ryan) {
 
